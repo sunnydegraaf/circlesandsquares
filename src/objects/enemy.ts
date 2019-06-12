@@ -7,8 +7,8 @@ export class enemy extends Phaser.Physics.Arcade.Sprite {
   private direction: number;
   private previous_position: number;
 
-  constructor(scene: PlayScene) {
-    super(scene, 300, 350, "monster");
+  constructor(scene: PlayScene, x:number, y:number) {
+    super(scene, x, y, "monster");
 
     this.playScene = scene;
     this.scene.add.existing(this);
@@ -17,6 +17,8 @@ export class enemy extends Phaser.Physics.Arcade.Sprite {
     this.addAnimations();
     this.play("walkenemy", true);
     this.setVelocityY(-100);
+    this.body.setSize(32,20)
+    this.body.setOffset(0,2.5)
     this.flipX = true;
     this.walking_distance = Phaser.Math.Between(98, 255);
     this.direction = this.angle;

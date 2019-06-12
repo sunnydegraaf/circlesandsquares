@@ -25,11 +25,30 @@ export class LoadScene extends Phaser.Scene {
     this.load.spritesheet("bait", require("../assets/image/Food.png"), {
       frameWidth: 16,
       frameHeight: 16
-  });
+    });
 
+    this.load.image("restart_button", require("../assets/image/restart_button.png"));
+    this.load.image("menu_button", require("../assets/image/menu_button.png"));
     this.load.image("play_button", require("../assets/image/play_button2.png"));
     this.load.image("options_button", require("../assets/image/options_button2.png"));
     this.load.image("background", require("../assets/image/background2.jpg"));
+
+    this.load.spritesheet("smoke", require("../assets/image/smoke.gif"), {
+      frameWidth: 32,
+      frameHeight: 32
+    });
+
+    this.load.spritesheet("blood", require("../assets/image/blood.png"), {
+      frameWidth: 250,
+      frameHeight: 300
+    });
+
+    this.load.spritesheet("smokeblock", require("../assets/image/smokeblock.png"), {
+      frameWidth: 32,
+      frameHeight: 32
+    });
+
+
   }
 
   preload() {
@@ -110,7 +129,7 @@ export class LoadScene extends Phaser.Scene {
     });
 
     //simulate large load
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 125; i++) {
       this.load.spritesheet("cat" + i, "./assets/cat.png", {
         frameHeight: 32,
         frameWidth: 32

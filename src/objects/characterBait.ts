@@ -6,6 +6,7 @@ export class characterBait extends Phaser.Physics.Arcade.Sprite {
   private playScene: PlayScene;
   private keyboard: any;
   private arcade: Arcade;
+  private emitter: Phaser.GameObjects.Particles.ParticleEmitter;
 
   constructor(scene: PlayScene) {
     super(scene, 144, 415, "characterBait");
@@ -19,6 +20,8 @@ export class characterBait extends Phaser.Physics.Arcade.Sprite {
     this.setDepth(5);
     this.addPhysics();
     this.addAnimations();
+    this.addParticles();
+    this.body.setSize(25,27)
 
     this.keyboard = this.scene.input.keyboard.addKeys("W, A, S, D, B, F");
   }
@@ -32,6 +35,18 @@ export class characterBait extends Phaser.Physics.Arcade.Sprite {
   public update(): void {
     this.keyboardInput();
     this.joystickInput();
+
+    if(this.body.velocity.x !== 0 || this.body.velocity.y !== 0){
+      this.emitter.start()
+      this.emitter.startFollow(this)
+    } else {
+      this.emitter.stop()
+    }
+
+    //fading particles
+    this.emitter.forEachAlive(function(particle) {
+       particle.alpha = particle.life / 1000, 0, 1;
+    }, this);
   }
 
   public addAnimations(): void {
@@ -65,12 +80,20 @@ export class characterBait extends Phaser.Physics.Arcade.Sprite {
 
       if (this.arcade.Joysticks[1].X == 0 && this.arcade.Joysticks[1].Y == 0) {
         this.play("walk", false);
-
       }
-
-
     }
   }
+
+  private addParticles() {
+    var particles = this.scene.add.particles('smoke');
+
+    this.emitter = particles.createEmitter({
+      lifespan: 400,
+      speed: 30,
+      y: 10,
+      scale: { start: 0.1, end: 0.05 },
+    });
+  };
 
   private keyboardInput(): void {
     // player movement

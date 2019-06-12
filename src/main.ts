@@ -1,12 +1,11 @@
-/** @type {import("./typings/phaser")} */
-
+import "phaser";
 import { Arcade } from "./utils/arcade"
 import { LoadScene } from "./scenes/LoadScene";
 import { MenuScene } from "./scenes/MenuScene";
 import { OpeningScene } from "./scenes/OpeningScene";
 import { PlayScene } from "./scenes/PlayScene";
 import { GameOverScene } from "./scenes/GameOverScene";
-// @ts-ignore
+
 
 
 const config: Phaser.Types.Core.GameConfig = {
@@ -22,7 +21,6 @@ const config: Phaser.Types.Core.GameConfig = {
       debug: true
     }
   },
-
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH

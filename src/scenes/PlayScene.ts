@@ -3,136 +3,185 @@ import { characterBait } from "../objects/characterBait"
 import { pushBlock } from "../objects/pushBlock"
 import { enemy } from "../objects/enemy";
 import { bait } from "../objects/bait";
-import { Arcade } from "../utils/arcade";
-
 
 export class PlayScene extends Phaser.Scene {
-    private player!: characterBait;
-    private blockGroup! : Phaser.Physics.Arcade.Group
-    private enemy!: enemy
-    private baitGroup!: Phaser.GameObjects.Group
+    private player: characterBait;
+    private blockGroup: Phaser.Physics.Arcade.Group
+    private bait: bait
     private baitCounter: number
-    private keyObj!: Phaser.Input.Keyboard.Key
+    private keyObj: Phaser.Input.Keyboard.Key
     private Keyboard: any
+    private canpickup: boolean;
+    private enemyGroup: Phaser.Physics.Arcade.Group;
+    private emitter: Phaser.GameObjects.Particles.ParticleEmitter;
+    
+    private top: Phaser.Tilemaps.DynamicTilemapLayer
+    private wall: Phaser.Tilemaps.DynamicTilemapLayer
+    private ground: Phaser.Tilemaps.DynamicTilemapLayer
+    private mappy: Phaser.Tilemaps.Tilemap
 
     constructor() {
         super({
             key: CST.SCENES.PLAY
         });
+        document.addEventListener("joystick1button1", () => this.placeBait())
+        this.baitCounter = 1;
+        this.canpickup = false
 
-        document.addEventListener("joystick1button1", () => this.placeBait ())
-        this.baitCounter = 3;
     }
 
-    create() {
-
+    create(): void {
         //map
-        let mappy = this.add.tilemap("mappy");
-        let terrain = mappy.addTilesetImage("dungeonTileset", "Dungeon");
+        this.mappy = this.add.tilemap("mappy");
+        let terrain = this.mappy.addTilesetImage("dungeonTileset", "Dungeon");
 
         //layers
-        let ground = mappy.createStaticLayer("ground", [terrain], 0, 0).setDepth(0);
-        let wall = mappy.createStaticLayer("wall", [terrain], 0, 0).setDepth(1);
-        let top = mappy.createStaticLayer("top", [terrain], 0, 0).setDepth(2);
+        this.ground = this.mappy.createDynamicLayer("ground", [terrain], 0, 0).setDepth(0);
+        this.wall = this.mappy.createDynamicLayer("wall", [terrain], 0, 0).setDepth(2);
+        this.top = this.mappy.createDynamicLayer("top", [terrain], 0, 0).setDepth(1);
 
         // pushable blocks
         let pushableBlocks = [];
-        pushableBlocks = mappy.createFromObjects("pushBlocks", 65, {key: "pushableBlocks" })
+        pushableBlocks = this.mappy.createFromObjects("pushBlocks", 65, { key: "pushableBlocks" })
 
-        this.blockGroup = this.physics.add.group()
+        this.blockGroup = this.physics.add.group({ runChildUpdate: true })
 
-        for (let i = 0; i < pushableBlocks.length; i++ ) {
-            this.blockGroup.add(new pushBlock(this, pushableBlocks[i].x, pushableBlocks[i].y ))
+        for (let i = 0; i < pushableBlocks.length; i++) {
+            this.blockGroup.add(new pushBlock(this, pushableBlocks[i].x, pushableBlocks[i].y))
         }
 
-        //bait
-        this.baitGroup = this.add.group({ runChildUpdate: true })
+        //enemies
+        let enemies = [];
+        enemies = this.mappy.createFromObjects("enemies", 66, { key: "enemies" })
+
+        this.enemyGroup = this.physics.add.group({ runChildUpdate: true })
+
+        for (let i = 0; i < enemies.length; i++) {
+            this.enemyGroup.add(new enemy(this, enemies[i].x, enemies[i].y))
+        }
+        this.enemyGroup.setVelocityX(100)
 
         // players
         this.player = new characterBait(this)
 
-        // enemies
-        this.enemy = new enemy(this)
-
         //map collisions
-        this.physics.add.collider(this.player, ground);
-        this.physics.add.collider(this.player, wall);
-        this.physics.add.collider(this.player, top);
+        this.physics.add.collider(this.player, this.ground);
+        this.physics.add.collider(this.player, this.wall);
+        this.physics.add.collider(this.player, this.top);
 
-        this.physics.add.collider(this.player, this.blockGroup, this.bounceWall, undefined, this)
-        this.physics.add.collider(this.player, this.enemy, this.gameOver, undefined, this)
+        this.physics.add.collider(this.player, this.blockGroup, this.bounceWall, null, this)
+        this.physics.add.collider(this.player, this.enemyGroup, this.gameOver, null, this)
 
-        this.physics.add.collider(this.enemy, ground);
-        this.physics.add.collider(this.enemy, wall);
-        this.physics.add.collider(this.enemy, top, this.collidewall, undefined, this);
+        this.physics.add.collider(this.enemyGroup, this.ground);
+        this.physics.add.collider(this.enemyGroup, this.wall);
+        this.physics.add.collider(this.enemyGroup, this.top, this.collidewall, null, this);
 
-        this.physics.add.collider(this.enemy, this.blockGroup, this.enemyDie, undefined, this)
+        this.physics.add.collider(this.enemyGroup, this.blockGroup, this.enemyDie, null, this)
 
-        this.physics.add.collider(this.blockGroup, top)
+        this.physics.add.collider(this.blockGroup, this.top)
 
-        this.physics.add.overlap(this.player, this.baitGroup, this.pickupBait, undefined, this)
 
         //tile property collisions
-        ground.setCollisionByProperty({ collides: true });
-        wall.setCollisionByProperty({ collides: true });
-        top.setCollisionByProperty({ collides: true });
+        this.ground.setCollisionByProperty({ collides: true });
+        this.wall.setCollisionByProperty({ collides: true });
+        this.top.setCollisionByProperty({ collides: true });
 
         this.keyObj = this.input.keyboard.addKey('B');  // Get key object
         this.Keyboard = this.input.keyboard.addKeys("F");
-
     }
 
     placeBait() {
+        setTimeout(() => {
+            this.canpickup = true
+        }, 1000);
         if (this.baitCounter !== 0) {
-            this.baitGroup.add(new bait(this, this.player.x, this.player.y), true)
+            this.bait = new bait(this, this.player.x, this.player.y)
             this.baitCounter--
+        }
+        this.physics.add.overlap(this.player, this.bait, this.pickupBait, null, this)
+        this.physics.add.overlap(this.enemyGroup, this.bait, this.eatBait, null, this)
+    }
+
+    pickupBait() {
+        if (this.input.keyboard.checkDown(this.keyObj, 0) && this.canpickup == true) {
+            this.bait.destroy(true)
+            this.baitCounter++
+            this.canpickup = false
         }
     }
 
-    pickupBait(b: bait) {
-        console.log("moi")
+    eatBait(b: bait, e: enemy) {
+        
+        e.setVelocity(0)
+        this.bait.destroy()
+
+        setTimeout(() => {
+            console.log("hoevaakdanbro")
+            e.collideWall()
+            this.canpickup = false
+            this.baitCounter++
+        }, 3000);
     }
 
-    bounceWall(b: pushBlock) {
-          //move block when pushed
-          if (b.body.touching.left && this.Keyboard.F.isDown)
-          b.setVelocityX(175)
-      else if (b.body.touching.right && this.Keyboard.F.isDown) {
-          b.setVelocityX(-175)
-      } else if (b.body.touching.up && this.Keyboard.F.isDown) {
-          b.setVelocityY(175)
-      } else if (b.body.touching.down && this.Keyboard.F.isDown) {
-          b.setVelocityY(-175)
-      }
+    bounceWall(p: characterBait, b: pushBlock): void {
+        //move block when pushed
+        if (b.body.touching.left && this.Keyboard.F.isDown) {
+            b.setVelocityX(175)
+        } else if (b.body.touching.right && this.Keyboard.F.isDown) {
+            b.setVelocityX(-175)
+        } else if (b.body.touching.up && this.Keyboard.F.isDown) {
+            b.setVelocityY(175)
+        } else if (b.body.touching.down && this.Keyboard.F.isDown) {
+            b.setVelocityY(-175)
+        }
     }
 
-    collidewall() {
-        // @ts-ignore
-        this.enemy.collideWall()
+    collidewall(e: enemy) {
+        console.log("boem!")
+
+        setTimeout(() => {
+            e.collideWall()
+        }, 500);
     }
 
     gameOver() {
         this.scene.start("gameover");
     }
 
-    enemyDie(b: pushBlock) {
+    enemyDie(e: enemy, b: pushBlock) {
         if (b.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
-            this.enemy.destroy()
+            e.destroy()
+
+            var particles = this.add.particles('blood');
+
+            this.emitter = particles.createEmitter({
+                lifespan: 300,
+                speed: 75,
+                scale: { start: 0.1, end: 0.05 },
+                x: e.x,
+                y: e.y + 20
+            });
+
+            setTimeout(() => {
+                this.emitter.stop()
+            }, 300);
+
 
             // slow block down
             setTimeout(() => {
                 b.setVelocity(0);
             }, 150);
         } else {
-            this.collidewall()
+            this.collidewall(e)
         }
+
+
     }
 
     update() {
-        if (this.input.keyboard.checkDown(this.keyObj, 500)) {
+        if (this.input.keyboard.checkDown(this.keyObj, 1000)) {
             this.placeBait()
         }
-
         this.player.update()
         this.enemy.update()
         
