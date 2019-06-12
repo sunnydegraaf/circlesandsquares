@@ -1918,6 +1918,7 @@ function (_Phaser$Scene) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(OpeningScene).call(this, {
       key: CST_1.CST.SCENES.OPENING
     }));
+    _this.i = 0;
     document.addEventListener("joystick1button1", function () {
       return _this.placeBait();
     });
@@ -1928,13 +1929,7 @@ function (_Phaser$Scene) {
   _createClass(OpeningScene, [{
     key: "create",
     value: function create() {
-      //text
-      this.add.text(400, 420, 'Press F to pay respect', {
-        fontFamily: 'Arial',
-        fontSize: 12,
-        color: '#ff3434'
-      }).setOrigin(0.5).setDepth(5); //map
-
+      //map
       var openingMap = this.add.tilemap("openingScene");
       var terrain = openingMap.addTilesetImage("tilesetDungeon", "Dungeon"); //layers
 
@@ -2037,10 +2032,23 @@ function (_Phaser$Scene) {
       }
     }
   }, {
+    key: "loopText",
+    value: function loopText() {
+      var text = ['We gaan kijken', 'Of we', 'Door de tekst', 'Kunnen loopen'];
+      var textEntry = this.add.text(400, 420, text[this.i], {
+        fontFamily: 'Arial',
+        fontSize: 12,
+        color: '#ff3434'
+      }).setOrigin(0.5).setDepth(5);
+      console.log(this.i);
+      this.i++;
+    }
+  }, {
     key: "update",
     value: function update() {
       if (this.input.keyboard.checkDown(this.keyObj, 500)) {
         this.placeBait();
+        this.loopText();
       }
 
       this.player.update();
@@ -2394,7 +2402,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63358" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59929" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

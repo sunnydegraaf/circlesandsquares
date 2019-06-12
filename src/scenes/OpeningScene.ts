@@ -14,21 +14,20 @@ export class OpeningScene extends Phaser.Scene {
     private baitCounter: number
     private keyObj!: Phaser.Input.Keyboard.Key
     private Keyboard: any
+    private i!: number
 
     constructor() {
         super({
             key: CST.SCENES.OPENING
         });
 
+        this.i = 0
+
         document.addEventListener("joystick1button1", () => this.placeBait ())
         this.baitCounter = 3;
     }
 
     create() {
-
-        //text
-        this.add.text(400, 420, 'Press F to pay respect', { fontFamily: 'Arial', fontSize: 12, color: '#ff3434' }).setOrigin(0.5).setDepth(5)
-
 
         //map
         let openingMap = this.add.tilemap("openingScene");
@@ -133,15 +132,22 @@ export class OpeningScene extends Phaser.Scene {
             this.collidewall()
         }
     }
+    
+    loopText() {
+        let text = ['We gaan kijken', 'Of we', 'Door de tekst', 'Kunnen loopen']
+        let textEntry = this.add.text(400, 420, text[this.i], { fontFamily: 'Arial', fontSize: 12, color: '#ff3434' }).setOrigin(0.5).setDepth(5)
+        console.log(this.i)
+        this.i++
+    }
 
     update() {
         if (this.input.keyboard.checkDown(this.keyObj, 500)) {
             this.placeBait()
+            this.loopText()
         }
 
         this.player.update()
         this.enemy.update()
-        
-    }
+        }
 }
 

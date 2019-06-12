@@ -12,7 +12,7 @@ import { GameOverScene } from "./scenes/GameOverScene";
 const config: Phaser.Types.Core.GameConfig = {
   width: 640,
   height: 480,
-  scene: [LoadScene, MenuScene,OpeningScene, PlayScene, GameOverScene],
+  scene: [LoadScene, MenuScene, OpeningScene, PlayScene, GameOverScene],
   render: {
     pixelArt: true
   },
