@@ -1918,6 +1918,7 @@ function (_Phaser$Scene) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(OpeningScene).call(this, {
       key: CST_1.CST.SCENES.OPENING
     }));
+    _this.text = ['We gaan kijken', 'Of we', 'Door de tekst', 'Kunnen loopen'];
     _this.i = 0;
     document.addEventListener("joystick1button1", function () {
       return _this.placeBait();
@@ -1981,6 +1982,7 @@ function (_Phaser$Scene) {
       this.keyObj = this.input.keyboard.addKey('B'); // Get key object
 
       this.Keyboard = this.input.keyboard.addKeys("F");
+      this.keySpace = this.input.keyboard.addKey('Space');
     }
   }, {
     key: "placeBait",
@@ -2032,10 +2034,14 @@ function (_Phaser$Scene) {
       }
     }
   }, {
+    key: "removeText",
+    value: function removeText() {
+      this.text.destroy();
+    }
+  }, {
     key: "loopText",
     value: function loopText() {
-      var text = ['We gaan kijken', 'Of we', 'Door de tekst', 'Kunnen loopen'];
-      var textEntry = this.add.text(400, 420, text[this.i], {
+      this.add.text(400, 420, this.text[this.i], {
         fontFamily: 'Arial',
         fontSize: 12,
         color: '#ff3434'
@@ -2048,6 +2054,9 @@ function (_Phaser$Scene) {
     value: function update() {
       if (this.input.keyboard.checkDown(this.keyObj, 500)) {
         this.placeBait();
+      }
+
+      if (this.input.keyboard.checkDown(this.keySpace, 500)) {
         this.loopText();
       }
 

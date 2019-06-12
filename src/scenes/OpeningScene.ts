@@ -13,13 +13,18 @@ export class OpeningScene extends Phaser.Scene {
     private baitGroup!: Phaser.GameObjects.Group
     private baitCounter: number
     private keyObj!: Phaser.Input.Keyboard.Key
+    private keySpace!: Phaser.Input.Keyboard.Key
     private Keyboard: any
     private i!: number
+    private text!: any;
 
     constructor() {
         super({
             key: CST.SCENES.OPENING
         });
+
+        this.text = ['We gaan kijken', 'Of we', 'Door de tekst', 'Kunnen loopen']
+
 
         this.i = 0
 
@@ -84,6 +89,7 @@ export class OpeningScene extends Phaser.Scene {
 
         this.keyObj = this.input.keyboard.addKey('B');  // Get key object
         this.Keyboard = this.input.keyboard.addKeys("F");
+        this.keySpace = this.input.keyboard.addKey('Space');
 
     }
 
@@ -132,10 +138,13 @@ export class OpeningScene extends Phaser.Scene {
             this.collidewall()
         }
     }
+
+    removeText() {
+        this.text.destroy()
+    }
     
     loopText() {
-        let text = ['We gaan kijken', 'Of we', 'Door de tekst', 'Kunnen loopen']
-        let textEntry = this.add.text(400, 420, text[this.i], { fontFamily: 'Arial', fontSize: 12, color: '#ff3434' }).setOrigin(0.5).setDepth(5)
+        this.add.text(400, 420, this.text[this.i], { fontFamily: 'Arial', fontSize: 12, color: '#ff3434' }).setOrigin(0.5).setDepth(5)
         console.log(this.i)
         this.i++
     }
@@ -143,6 +152,9 @@ export class OpeningScene extends Phaser.Scene {
     update() {
         if (this.input.keyboard.checkDown(this.keyObj, 500)) {
             this.placeBait()
+        }
+
+        if (this.input.keyboard.checkDown(this.keySpace, 500)) {
             this.loopText()
         }
 
