@@ -16,7 +16,7 @@ export class OpeningScene extends Phaser.Scene {
     private keySpace!: Phaser.Input.Keyboard.Key
     private Keyboard: any
     private i!: number
-    private text!: any;
+    private text!: [string, string, string, string];
 
     constructor() {
         super({
@@ -140,13 +140,23 @@ export class OpeningScene extends Phaser.Scene {
     }
 
     removeText() {
-        this.text.destroy()
+        this.text.setVisible(true)
     }
     
     loopText() {
-        this.add.text(400, 420, this.text[this.i], { fontFamily: 'Arial', fontSize: 12, color: '#ff3434' }).setOrigin(0.5).setDepth(5)
+        this.add.rectangle(320, 450, 150, 30, 0xffffff,).setDepth(5).setOrigin(0.5)
+        this.add.text(320, 450, this.text[this.i], { 
+            fontFamily: 'Arial', 
+            fontSize: 12, 
+            color: '#ff3434', 
+        }).setOrigin(0.5).setDepth(5)
         console.log(this.i)
         this.i++
+       
+        if(this.i > this.text.length) {
+            console.log('delete')
+            this.add.rectangle(320, 450, 150, 30, 0x181424,).setDepth(5).setOrigin(0.5)
+        }
     }
 
     update() {

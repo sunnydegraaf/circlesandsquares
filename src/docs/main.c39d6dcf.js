@@ -2036,18 +2036,24 @@ function (_Phaser$Scene) {
   }, {
     key: "removeText",
     value: function removeText() {
-      this.text.destroy();
+      this.text.setVisible(true);
     }
   }, {
     key: "loopText",
     value: function loopText() {
-      this.add.text(400, 420, this.text[this.i], {
+      this.add.rectangle(320, 450, 150, 30, 0xffffff).setDepth(5).setOrigin(0.5);
+      this.add.text(320, 450, this.text[this.i], {
         fontFamily: 'Arial',
         fontSize: 12,
         color: '#ff3434'
       }).setOrigin(0.5).setDepth(5);
       console.log(this.i);
       this.i++;
+
+      if (this.i > this.text.length) {
+        console.log('delete');
+        this.add.rectangle(320, 450, 150, 30, 0x181424).setDepth(5).setOrigin(0.5);
+      }
     }
   }, {
     key: "update",
