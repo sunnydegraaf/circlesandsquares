@@ -1,4 +1,5 @@
 import { PlayScene } from "../scenes/PlayScene"
+import { OpeningScene } from "../scenes/OpeningScene";
 
 export class pushBlock extends Phaser.Physics.Arcade.Sprite {
 

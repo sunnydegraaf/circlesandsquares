@@ -70,9 +70,8 @@ export class MenuScene extends Phaser.Scene {
     })
 
     playButton.on("pointerup", () => {
-      this.scene.start(CST.SCENES.PLAY);
-    })
-
+      this.scene.start(CST.SCENES.OPENING);
+    });
 
     optionsButton.setInteractive();
 

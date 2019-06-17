@@ -58,6 +58,9 @@ export class LoadScene extends Phaser.Scene {
     this.load.image("Dungeon", require("../assets/image/tileset_dungeon2.png"));
     this.load.tilemapTiledJSON("mappy", require("../assets/maps/level1.json"));
 
+    //opening map
+    this.load.tilemapTiledJSON("openingScene", require("../assets/maps/test.json"));
+
     // loading bar
     var progressBar = this.add.graphics();
     var progressBox = this.add.graphics();

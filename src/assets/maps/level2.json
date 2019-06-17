@@ -15,7 +15,7 @@
          "y":0
         }, 
         {
-         "data":"JQAAACYAAAAmAAAAJgAAACYAAAAmAAAAJgAAACYAAAAmAAAAJgAAACYAAAAmAAAAJgAAACYAAAAmAAAAJgAAACYAAAAmAAAAJgAAACcAAAAtAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALwAAAC0AAAAAAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAKAAAACgAAAAAAAAAKAAAAAAAAAAvAAAALQAAAAAAAAAwAAAAAAAAACUAAAAnAAAAAAAAACgAAAAoAAAAKAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAwAAAAAAAAAC8AAAAtAAAAAAAAACgAAAAAAAAALQAAAC8AAAAAAAAAAAAAAAAAAAAoAAAAAAAAACgAAAAoAAAAKAAAAAAAAAAoAAAAAAAAACgAAAAAAAAALwAAAC0AAAAAAAAAKAAAAAAAAAAtAAAALwAAAAAAAAAoAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAoAAAAAAAAACgAAAAAAAAAKAAAAAAAAAAvAAAALQAAAAAAAAAoAAAAAAAAADUAAAA3AAAAAAAAACgAAAAAAAAAAAAAAAAAAAAoAAAAKAAAACgAAAAAAAAAKAAAACgAAAAoAAAAMAAAAC8AAAAtAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAAAAKAAAACgAAAAoAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALwAAAC0AAAAAAAAAKAAAACgAAAAAAAAAKAAAAAAAAAAAAAAAAAAAACgAAAAAAAAAKAAAAAAAAAAoAAAAKAAAADAAAAAoAAAAKAAAAAAAAAAvAAAALQAAAAAAAAAoAAAAAAAAAAAAAAAoAAAAMAAAACgAAAAAAAAAKAAAAAAAAAAoAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAC8AAAAtAAAAAAAAADAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAAAAKAAAAAAAAAAoAAAAKAAAACgAAAAAAAAALwAAAC0AAAAAAAAAKAAAAAAAAAAAAAAAKAAAACgAAAAoAAAAMAAAACgAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvAAAALQAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAKAAAACgAAAAwAAAAKAAAACgAAAAoAAAAAAAAAC8AAAAtAAAAAAAAACgAAAAAAAAAKAAAACgAAAAoAAAAKAAAACgAAAAoAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAALwAAADUAAAA2AAAANgAAADYAAAA2AAAANgAAADYAAAA2AAAANgAAADYAAAA2AAAANgAAADYAAAA2AAAANgAAADYAAAA2AAAANgAAADYAAAA3AAAA",
+         "data":"JQAAACYAAAAmAAAAJgAAACYAAAAmAAAAJgAAACYAAAAmAAAAJgAAACYAAAAmAAAAJgAAACYAAAAmAAAAJgAAACYAAAAmAAAAJgAAACcAAAAtAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALwAAAC0AAAAAAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAKAAAACgAAAAAAAAAKAAAAAAAAAAvAAAALQAAAAAAAAAwAAAAAAAAACUAAAAnAAAAAAAAACgAAAAoAAAAKAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAwAAAAAAAAAC8AAAAtAAAAAAAAACgAAAAAAAAALQAAAC8AAAAAAAAAAAAAAAAAAAAoAAAAAAAAACgAAAAoAAAAKAAAAAAAAAAoAAAAAAAAACgAAAAAAAAALwAAAC0AAAAAAAAAKAAAAAAAAAAtAAAALwAAAAAAAAAoAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAoAAAAAAAAACgAAAAAAAAAKAAAAAAAAAAvAAAALQAAAAAAAAAoAAAAAAAAADUAAAA3AAAAAAAAACgAAAAAAAAAAAAAAAAAAAAoAAAAKAAAACgAAAAAAAAAKAAAACgAAAAoAAAAAAAAAC8AAAAtAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAACgAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALwAAAC0AAAAAAAAAKAAAACgAAAAAAAAAKAAAAAAAAAAAAAAAAAAAACgAAAAAAAAAKAAAAAAAAAAoAAAAKAAAADAAAAAoAAAAKAAAAAAAAAAvAAAALQAAAAAAAAAoAAAAAAAAAAAAAAAoAAAAMAAAACgAAAAAAAAAKAAAAAAAAAAoAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAC8AAAAtAAAAAAAAADAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAAAAKAAAAAAAAAAoAAAAKAAAACgAAAAAAAAALwAAAC0AAAAAAAAAKAAAAAAAAAAAAAAAKAAAACgAAAAoAAAAMAAAACgAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvAAAALQAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAKAAAACgAAAAwAAAAKAAAACgAAAAoAAAAAAAAAC8AAAAtAAAAAAAAACgAAAAAAAAAKAAAACgAAAAoAAAAKAAAACgAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALwAAADUAAAA2AAAANgAAADYAAAA2AAAANgAAADYAAAA2AAAANgAAADYAAAA2AAAANgAAADYAAAA2AAAANgAAADYAAAA2AAAANgAAADYAAAA3AAAA",
          "encoding":"base64",
          "height":15,
          "id":3,
@@ -167,83 +167,12 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":8,
-         "name":"enemies",
-         "objects":[
-                {
-                 "gid":66,
-                 "height":32,
-                 "id":41,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":128,
-                 "y":64
-                }, 
-                {
-                 "gid":66,
-                 "height":32,
-                 "id":42,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":160,
-                 "y":256
-                }, 
-                {
-                 "gid":66,
-                 "height":32,
-                 "id":43,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":416,
-                 "y":256
-                }, 
-                {
-                 "gid":66,
-                 "height":32,
-                 "id":44,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":448,
-                 "y":448
-                }, 
-                {
-                 "gid":66,
-                 "height":32,
-                 "id":45,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":576,
-                 "y":224
-                }],
-         "opacity":1,
-         "type":"objectgroup",
          "visible":true,
          "x":0,
          "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":47,
+ "nextlayerid":6,
+ "nextobjectid":27,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.3",
@@ -363,29 +292,6 @@
          "name":"block",
          "spacing":0,
          "tilecount":1,
-         "tileheight":32,
-         "tiles":[
-                {
-                 "id":0,
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }]
-                }],
-         "tilewidth":32
-        }, 
-        {
-         "columns":3,
-         "firstgid":66,
-         "image":"..\/image\/enemy.png",
-         "imageheight":32,
-         "imagewidth":96,
-         "margin":0,
-         "name":"enemy",
-         "spacing":0,
-         "tilecount":3,
          "tileheight":32,
          "tilewidth":32
         }],
