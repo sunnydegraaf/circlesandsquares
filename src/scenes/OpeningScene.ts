@@ -42,18 +42,18 @@ export class OpeningScene extends Phaser.Scene {
         let ground = openingMap.createStaticLayer("ground", [terrain], 0, 0).setDepth(0);
         let wall = openingMap.createStaticLayer("wall", [terrain], 0, 0).setDepth(1);
         let top = openingMap.createStaticLayer("top", [terrain], 0, 0).setDepth(2);
-
+        
          // pushable blocks
          let pushableBlocks = [];
-         pushableBlocks = openingMap.createFromObjects("pushBlocks", 52, {key: "pushBlock" })
+         pushableBlocks = openingMap.createFromObjects("pushBlocks", 52, {key: "pushBlocks" })
          
-        console.log(pushableBlocks)
-
-         this.blockGroup = this.physics.add.group()
+         this.blockGroup = this.physics.add.group({ runChildUpdate: true})
  
          for (let i = 0; i < pushableBlocks.length; i++ ) {
              this.blockGroup.add(new pushBlock(this, pushableBlocks[i].x, pushableBlocks[i].y ))
          }
+
+         
 
         //bait
         this.baitGroup = this.add.group({ runChildUpdate: true })
@@ -62,25 +62,25 @@ export class OpeningScene extends Phaser.Scene {
         this.player = new characterBait(this)
 
         // enemies
-        this.enemy = new enemy(this)
+        this.enemy = new enemy(this, 200, 200)
 
         //map collisions
         this.physics.add.collider(this.player, ground);
         this.physics.add.collider(this.player, wall);
         this.physics.add.collider(this.player, top);
 
-        this.physics.add.collider(this.player, this.blockGroup, this.bounceWall, undefined, this)
-        this.physics.add.collider(this.player, this.enemy, this.gameOver, undefined, this)
+        this.physics.add.collider(this.player, this.blockGroup, this.bounceWall, null, this)
+        this.physics.add.collider(this.player, this.enemy, this.gameOver, null, this)
 
         this.physics.add.collider(this.enemy, ground);
         this.physics.add.collider(this.enemy, wall);
-        this.physics.add.collider(this.enemy, top, this.collidewall, undefined, this);
+        this.physics.add.collider(this.enemy, top, this.collidewall, null, this);
 
-        this.physics.add.collider(this.enemy, this.blockGroup, this.enemyDie, undefined, this)
+        this.physics.add.collider(this.enemy, this.blockGroup, this.enemyDie, null, this)
 
         this.physics.add.collider(this.blockGroup, top)
 
-        this.physics.add.overlap(this.player, this.baitGroup, this.pickupBait, undefined, this)
+        this.physics.add.overlap(this.player, this.baitGroup, this.pickupBait, null, this)
 
         //tile property collisions
         ground.setCollisionByProperty({ collides: true });
@@ -104,17 +104,17 @@ export class OpeningScene extends Phaser.Scene {
         console.log("moi")
     }
 
-    bounceWall(b: pushBlock) {
-          //move block when pushed
-          if (b.body.touching.left && this.Keyboard.F.isDown)
-          b.setVelocityX(175)
-      else if (b.body.touching.right && this.Keyboard.F.isDown) {
-          b.setVelocityX(-175)
-      } else if (b.body.touching.up && this.Keyboard.F.isDown) {
-          b.setVelocityY(175)
-      } else if (b.body.touching.down && this.Keyboard.F.isDown) {
-          b.setVelocityY(-175)
-      }
+    bounceWall(p: characterBait, b: pushBlock): void {
+        //move block when pushed
+        if (b.body.touching.left && this.Keyboard.F.isDown) {
+            b.setVelocityX(175)
+        } else if (b.body.touching.right && this.Keyboard.F.isDown) {
+            b.setVelocityX(-175)
+        } else if (b.body.touching.up && this.Keyboard.F.isDown) {
+            b.setVelocityY(175)
+        } else if (b.body.touching.down && this.Keyboard.F.isDown) {
+            b.setVelocityY(-175)
+        }
     }
 
     collidewall() {
@@ -137,10 +137,6 @@ export class OpeningScene extends Phaser.Scene {
         } else {
             this.collidewall()
         }
-    }
-
-    removeText() {
-        this.text.setVisible(true)
     }
     
     loopText() {
@@ -167,9 +163,9 @@ export class OpeningScene extends Phaser.Scene {
         if (this.input.keyboard.checkDown(this.keySpace, 500)) {
             this.loopText()
         }
-
+        
         this.player.update()
-        this.enemy.update()
+        
         }
 }
 

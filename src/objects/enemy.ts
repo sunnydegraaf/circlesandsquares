@@ -1,4 +1,5 @@
 import { PlayScene } from "../scenes/PlayScene";
+import { OpeningScene } from "../scenes/OpeningScene";
 
 export class enemy extends Phaser.Physics.Arcade.Sprite {
   private playScene: PlayScene;
@@ -7,10 +8,9 @@ export class enemy extends Phaser.Physics.Arcade.Sprite {
   private direction: number;
   private previous_position: number;
 
-  constructor(scene: PlayScene, x:number, y:number) {
+  constructor(scene: PlayScene | OpeningScene, x:number, y:number) {
     super(scene, x, y, "monster");
 
-    this.playScene = scene;
     this.scene.add.existing(this);
     this.setDepth(5);
     this.addPhysics();
