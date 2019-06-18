@@ -12,6 +12,7 @@ export class OpeningScene extends Phaser.Scene {
     private enemy!: enemy
     private baitGroup!: Phaser.GameObjects.Group
     private baitCounter: number
+    private emitter: Phaser.GameObjects.Particles.ParticleEmitter;
     private keyObj!: Phaser.Input.Keyboard.Key
     private keySpace!: Phaser.Input.Keyboard.Key
     private Keyboard: any
@@ -23,7 +24,7 @@ export class OpeningScene extends Phaser.Scene {
             key: CST.SCENES.OPENING
         });
 
-        this.text = ['Raak de enemy met het blok', 'Loop naar de uitgang', 'Door de tekst', 'Kunnen loopen']
+        this.text = ['Raak de enemy met het blok', 'Blokken stoppen als ze een enemy raken', 'Loop naar de uitgang', 'Kunnen loopen']
 
         this.i = 0
 
@@ -82,7 +83,7 @@ export class OpeningScene extends Phaser.Scene {
         this.physics.add.collider(this.enemy, top, this.collidewall, null, this);
 
         this.physics.add.collider(this.enemy, this.blockGroup, this.enemyDie, null, this)
-        this.physics.add.collider(this.enemy, this.blockGroup, this.loopText, null, this)
+        // this.physics.add.collider(this.enemy, this.blockGroup, this.loopText, null, this)
 
         this.physics.add.collider(this.blockGroup, top)
 
@@ -124,26 +125,44 @@ export class OpeningScene extends Phaser.Scene {
         }
     }
 
-    collidewall() {
-        // @ts-ignore
-        // this.enemy.collideWall()
+    collidewall(e: enemy) {
+        console.log("boem!")
+
         this.enemy.upDown()
+
+        setTimeout(() => {
+        }, 500);
     }
 
     gameOver() {
         this.scene.start("gameover");
     }
 
-    enemyDie(b: pushBlock) {
+    enemyDie(e: enemy, b: pushBlock) {
         if (b.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
-            this.enemy.destroy()
+            e.destroy()
+
+            var particles = this.add.particles('blood');
+
+            this.emitter = particles.createEmitter({
+                lifespan: 300,
+                speed: 75,
+                scale: { start: 0.1, end: 0.05 },
+                x: e.x,
+                y: e.y + 20
+            });
+
+            setTimeout(() => {
+                this.emitter.stop()
+            }, 300);
+
 
             // slow block down
             setTimeout(() => {
                 b.setVelocity(0);
             }, 150);
         } else {
-            this.collidewall()
+            this.collidewall(e)
         }
     }
     
