@@ -25,7 +25,6 @@ export class OpeningScene extends Phaser.Scene {
 
         this.text = ['We gaan kijken', 'Of we', 'Door de tekst', 'Kunnen loopen']
 
-
         this.i = 0
 
         document.addEventListener("joystick1button1", () => this.placeBait ())
@@ -33,6 +32,14 @@ export class OpeningScene extends Phaser.Scene {
     }
 
     create() {
+
+        this.add.rectangle(320, 450, 250, 30, 0xffffff,).setDepth(5).setOrigin(0.5)
+        this.add.text(320, 450, 'Klik op F om een blok te verschuiven', { 
+            fontFamily: 'Arial', 
+            fontSize: 12, 
+            color: '#ff3434', 
+        }).setOrigin(0.5).setDepth(5)
+        
 
         //map
         let openingMap = this.add.tilemap("openingScene");
@@ -53,8 +60,6 @@ export class OpeningScene extends Phaser.Scene {
              this.blockGroup.add(new pushBlock(this, pushableBlocks[i].x, pushableBlocks[i].y ))
          }
 
-         
-
         //bait
         this.baitGroup = this.add.group({ runChildUpdate: true })
 
@@ -62,7 +67,7 @@ export class OpeningScene extends Phaser.Scene {
         this.player = new characterBait(this)
 
         // enemies
-        this.enemy = new enemy(this, 200, 200)
+        this.enemy = new enemy(this, 496, 200)
 
         //map collisions
         this.physics.add.collider(this.player, ground);
@@ -108,6 +113,7 @@ export class OpeningScene extends Phaser.Scene {
         //move block when pushed
         if (b.body.touching.left && this.Keyboard.F.isDown) {
             b.setVelocityX(175)
+            this.loopText()
         } else if (b.body.touching.right && this.Keyboard.F.isDown) {
             b.setVelocityX(-175)
         } else if (b.body.touching.up && this.Keyboard.F.isDown) {
@@ -119,7 +125,8 @@ export class OpeningScene extends Phaser.Scene {
 
     collidewall() {
         // @ts-ignore
-        this.enemy.collideWall()
+        // this.enemy.collideWall()
+        this.enemy.upDown()
     }
 
     gameOver() {
@@ -140,7 +147,7 @@ export class OpeningScene extends Phaser.Scene {
     }
     
     loopText() {
-        this.add.rectangle(320, 450, 150, 30, 0xffffff,).setDepth(5).setOrigin(0.5)
+        this.add.rectangle(320, 450, 250, 30, 0xffffff,).setDepth(5).setOrigin(0.5)
         this.add.text(320, 450, this.text[this.i], { 
             fontFamily: 'Arial', 
             fontSize: 12, 
@@ -150,8 +157,7 @@ export class OpeningScene extends Phaser.Scene {
         this.i++
        
         if(this.i > this.text.length) {
-            console.log('delete')
-            this.add.rectangle(320, 450, 150, 30, 0x181424,).setDepth(5).setOrigin(0.5)
+            this.add.rectangle(320, 450, 250, 30, 0x181424,).setDepth(5).setOrigin(0.5)
         }
     }
 

@@ -59,6 +59,35 @@ export class enemy extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
+public upDown() {
+  let direction = Phaser.Math.Between(1, 2);
+  if (direction == 1) {
+    this.setVelocityY(-100);
+  } else if (direction == 2) {
+    this.setVelocityY(100);
+  }
+}
+
+  // public collideWall(up:boolean, right:boolean, down:boolean, left:boolean) {
+  //   // AI movement
+  //   let direction = Phaser.Math.Between(1, 4);
+  //   if (up == true && direction == 1) {
+  //     console.log('up');
+  //     this.setVelocityY(-100);
+  //   } else if (down == true && direction == 2) {
+  //     console.log('down');
+  //     this.setVelocityY(100);
+  //   } else if (right == true && direction == 3) {
+  //     console.log('right');
+  //     this.setVelocityX(100);
+  //     this.flipX = false;
+  //   } else {
+  //     this.setVelocityX(left == true && -100);
+  //     console.log('left');
+  //     this.flipX = true;
+  //   }
+  // }
+
   public update() {
     //test for better ai
     // this.new_position =  this.x;
