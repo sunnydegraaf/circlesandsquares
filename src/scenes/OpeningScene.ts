@@ -23,7 +23,7 @@ export class OpeningScene extends Phaser.Scene {
             key: CST.SCENES.OPENING
         });
 
-        this.text = ['We gaan kijken', 'Of we', 'Door de tekst', 'Kunnen loopen']
+        this.text = ['Raak de enemy met het blok', 'Loop naar de uitgang', 'Door de tekst', 'Kunnen loopen']
 
         this.i = 0
 
@@ -82,6 +82,7 @@ export class OpeningScene extends Phaser.Scene {
         this.physics.add.collider(this.enemy, top, this.collidewall, null, this);
 
         this.physics.add.collider(this.enemy, this.blockGroup, this.enemyDie, null, this)
+        this.physics.add.collider(this.enemy, this.blockGroup, this.loopText, null, this)
 
         this.physics.add.collider(this.blockGroup, top)
 
