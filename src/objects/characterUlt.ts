@@ -8,8 +8,8 @@ export class characterUlt extends Phaser.Physics.Arcade.Sprite {
   private died: boolean;
 
 
-  constructor(scene: Phaser.Scene) {
-    super(scene, 144, 415, "characterUlt", 0);
+  constructor(scene: Phaser.Scene, x: number, y: number) {
+    super(scene, x, y, "characterUlt", 0);
 
     let g = this.scene.game as MonsterHunter;
     this.died = false
@@ -21,7 +21,6 @@ export class characterUlt extends Phaser.Physics.Arcade.Sprite {
     this.addAnimations();
     this.addParticles();
     this.getCenter()
-    // this.setImmovable(true)
     this.body.setSize(17, 23)
     this.body.setOffset(7, 8)
     this.play("idle")
@@ -37,7 +36,6 @@ export class characterUlt extends Phaser.Physics.Arcade.Sprite {
 
   public update(): void {
     if (this.died == false) {
-      console.log("kanker")
       this.keyboardInput();
       this.joystickInput();
     }

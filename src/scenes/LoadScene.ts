@@ -136,12 +136,12 @@ export class LoadScene extends Phaser.Scene {
       this.scene.start(CST.SCENES.MENU);
     });
 
-    //simulate large load
-    for (let i = 0; i < 125; i++) {
-      this.load.spritesheet("cat" + i, "./assets/cat.png", {
-        frameHeight: 32,
-        frameWidth: 32
-      });
-    }
+    // //simulate large load
+    // for (let i = 0; i < 125; i++) {
+    //   this.load.spritesheet("cat" + i, "./assets/monster.png", {
+    //     frameHeight: 32,
+    //     frameWidth: 32
+    //   });
+    // }
   }
 }

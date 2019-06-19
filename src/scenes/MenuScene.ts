@@ -1,14 +1,11 @@
-
-import { Arcade } from "../utils/arcade"
-import { MonsterHunter } from "../main"
+import { Arcade } from "../utils/arcade";
+import { MonsterHunter } from "../main";
 import { CST } from "../CST";
-import { Scale } from "phaser";
+
 export class MenuScene extends Phaser.Scene {
-
-  private arcade!: Arcade
-  private playTween: Phaser.Tweens.Tween
-  private optionsTween: Phaser.Tweens.Tween
-
+  private arcade!: Arcade;
+  private playTween: Phaser.Tweens.Tween;
+  private optionsTween: Phaser.Tweens.Tween;
 
   constructor() {
     super({
@@ -17,11 +14,10 @@ export class MenuScene extends Phaser.Scene {
   }
   init() { }
   create() {
+    let g = this.game as MonsterHunter;
+    this.arcade = g.arcade;
 
-    let g = this.game as MonsterHunter
-    this.arcade = g.arcade
-
-    document.addEventListener("joystick1button0", () => this.nextGame())
+    document.addEventListener("joystick1button0", () => this.nextGame());
 
     let background = this.add
       .image(0, 0, "background")
@@ -36,8 +32,6 @@ export class MenuScene extends Phaser.Scene {
       )
       .setDepth(2);
 
-      
-
     let optionsButton = this.add
       .image(
         this.game.renderer.width / 2,
@@ -49,63 +43,59 @@ export class MenuScene extends Phaser.Scene {
     playButton.setInteractive();
 
     playButton.on("pointerover", () => {
-        this.playTween = this.tweens.add({
+      this.playTween = this.tweens.add({
         targets: playButton,
         alpha: 0.8,
         scaleX: 1.2,
         scaleY: 1.2,
-        ease: 'Cubic.easeInOut',
+        ease: "Cubic.easeInOut",
         duration: 400,
-        yoyo:true,
-        repeat:-1,
-    })
-    })
+        yoyo: true,
+        repeat: -1
+      });
+    });
 
-    playButton.on("pointerout", () => { 
-      playButton.setScale(1)
-      this.tweens.remove(this.playTween)
-    })
+    playButton.on("pointerout", () => {
+      playButton.setScale(1);
+      this.tweens.remove(this.playTween);
+    });
 
     playButton.on("pointerup", () => {
-      this.scene.start(CST.SCENES.TEST);
+      this.scene.start(CST.SCENES.OPENING);
     });
 
     optionsButton.setInteractive();
 
     optionsButton.on("pointerover", () => {
       this.optionsTween = this.tweens.add({
-      targets: optionsButton,
-      alpha: 0.8,
-      scaleX: 1.2,
-      scaleY: 1.2,
-      ease: 'Cubic.easeInOut',
-      duration: 400,
-      yoyo:true,
-      repeat:-1,
-  })
-  })
+        targets: optionsButton,
+        alpha: 0.8,
+        scaleX: 1.2,
+        scaleY: 1.2,
+        ease: "Cubic.easeInOut",
+        duration: 400,
+        yoyo: true,
+        repeat: -1
+      });
+    });
 
-  optionsButton.on("pointerout", () => { 
-    optionsButton.setScale(1)
-    this.tweens.remove(this.optionsTween)
-  })
+    optionsButton.on("pointerout", () => {
+      optionsButton.setScale(1);
+      this.tweens.remove(this.optionsTween);
+    });
 
     optionsButton.on("pointerup", () => {
       //options
     });
   }
 
-  
-
   public update(): void {
     for (let joystick of this.arcade.Joysticks) {
-      joystick.update()
+      joystick.update();
     }
   }
 
   private nextGame() {
-
-    this.scene.start(CST.SCENES.PLAY)
+    this.scene.start(CST.SCENES.PLAY);
   }
-
 }

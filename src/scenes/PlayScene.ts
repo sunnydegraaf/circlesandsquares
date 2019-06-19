@@ -3,10 +3,13 @@ import { characterBait } from "../objects/characterBait"
 import { pushBlock } from "../objects/pushBlock"
 import { enemy } from "../objects/enemy";
 import { bait } from "../objects/bait";
-import { OpeningScene } from "./OpeningScene";
+import { characterUlt } from "../objects/characterUlt";
+import { characterPush } from "../objects/characterPush";
 
 export class PlayScene extends Phaser.Scene {
-    private player: characterBait;
+    private player: characterUlt;
+    private playerPush: characterPush;
+
     private blockGroup: Phaser.Physics.Arcade.Group
     private bait: bait
     private baitCounter: number
@@ -15,11 +18,12 @@ export class PlayScene extends Phaser.Scene {
     private canpickup: boolean;
     private enemyGroup: Phaser.Physics.Arcade.Group;
     private emitter: Phaser.GameObjects.Particles.ParticleEmitter;
-    
+
     private top: Phaser.Tilemaps.DynamicTilemapLayer
     private wall: Phaser.Tilemaps.DynamicTilemapLayer
     private ground: Phaser.Tilemaps.DynamicTilemapLayer
     private mappy: Phaser.Tilemaps.Tilemap
+
 
     constructor() {
         super({
@@ -63,15 +67,24 @@ export class PlayScene extends Phaser.Scene {
         this.enemyGroup.setVelocityX(100)
 
         // players
-        this.player = new characterBait(this)
+        this.player = new characterUlt(this, 150, 130);
+        this.playerPush = new characterPush(this, 100, 200)
 
         //map collisions
         this.physics.add.collider(this.player, this.ground);
         this.physics.add.collider(this.player, this.wall);
         this.physics.add.collider(this.player, this.top);
 
-        this.physics.add.collider(this.player, this.blockGroup, this.bounceWall, null, this)
-        this.physics.add.collider(this.player, this.enemyGroup, this.gameOver, null, this)
+        this.physics.add.collider(this.playerPush, this.ground);
+        this.physics.add.collider(this.playerPush, this.wall);
+        this.physics.add.collider(this.playerPush, this.top);
+
+
+        this.physics.add.collider(this.player, this.blockGroup);
+        this.physics.add.overlap(this.player, this.enemyGroup, this.gameOver, null, this);
+
+        this.physics.add.collider(this.playerPush, this.blockGroup, this.bounceWall, null, this)
+        this.physics.add.overlap(this.playerPush, this.enemyGroup, this.gameOver, null, this)
 
         this.physics.add.collider(this.enemyGroup, this.ground);
         this.physics.add.collider(this.enemyGroup, this.wall);
@@ -80,22 +93,20 @@ export class PlayScene extends Phaser.Scene {
         this.physics.add.collider(this.enemyGroup, this.blockGroup, this.enemyDie, null, this)
         this.physics.add.collider(this.blockGroup, this.blockGroup, this.blockDestroy, null, this)
 
-
         this.physics.add.collider(this.blockGroup, this.top)
-
-        this.mappy.setTileIndexCallback(5, this.placeBait, this.player)
 
         //tile property collisions
         this.ground.setCollisionByProperty({ collides: true });
         this.wall.setCollisionByProperty({ collides: true });
         this.top.setCollisionByProperty({ collides: true });
 
-        this.keyObj= this.input.keyboard.addKey('B');  // Get key object
+        this.keyObj = this.input.keyboard.addKey('B');  // Get key object
         this.Keyboard = this.input.keyboard.addKeys("F");
-        
+
     }
 
     placeBait() {
+        console.log("bait")
         setTimeout(() => {
             this.canpickup = true
         }, 1000);
@@ -116,7 +127,7 @@ export class PlayScene extends Phaser.Scene {
     }
 
     eatBait(b: bait, e: enemy) {
-        
+
         e.setVelocity(0)
         this.bait.destroy()
 
@@ -142,8 +153,6 @@ export class PlayScene extends Phaser.Scene {
     }
 
     collidewall(e: enemy) {
-        console.log("boem!")
-
         setTimeout(() => {
             e.collideWall()
         }, 500);
@@ -205,18 +214,16 @@ export class PlayScene extends Phaser.Scene {
             setTimeout(() => {
                 this.emitter.stop()
             }, 300);
-
-
-        } else {
-            this.collidewall(s)
         }
     }
 
     update() {
         if (this.input.keyboard.checkDown(this.keyObj, 1000)) {
+            console.log("press b")
             this.placeBait()
         }
         this.player.update()
-        
+        this.playerPush.update()
+
     }
 }

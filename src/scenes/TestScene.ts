@@ -2,10 +2,8 @@ import { CST } from "../CST";
 import { pushBlock } from "../objects/pushBlock"
 import { enemy } from "../objects/enemy";
 import { bait } from "../objects/bait";
-import { Arcade } from "../utils/arcade";
 import { characterUlt } from "../objects/characterUlt";
 import { characterPush } from "../objects/characterPush";
-import { characterBait } from "../objects/characterBait";
 
 export class TestScene extends Phaser.Scene {
     private player: characterUlt;
@@ -22,9 +20,9 @@ export class TestScene extends Phaser.Scene {
     private text: [string, string, string, string];
     private bait: bait
     private canpickup: boolean;
-  
-    
-    
+
+
+
 
     constructor() {
         super({
@@ -71,8 +69,8 @@ export class TestScene extends Phaser.Scene {
         this.baitGroup = this.add.group({ runChildUpdate: true })
 
         // players
-        this.player = new characterUlt(this);
-        this.playerPush = new characterPush(this)
+        this.player = new characterUlt(this, 150, 130);
+        this.playerPush = new characterPush(this, 100, 200)
 
         // enemies
         this.enemy = new enemy(this, 496, 200)
@@ -100,8 +98,6 @@ export class TestScene extends Phaser.Scene {
         // this.physics.add.collider(this.enemy, this.blockGroup, this.loopText, null, this)
 
         this.physics.add.collider(this.blockGroup, top)
-        
-        this.physics.add.collider(this.player, this.playerPush)
 
         this.physics.add.overlap(this.player, this.baitGroup, this.pickupBait, null, this)
 
@@ -137,12 +133,10 @@ export class TestScene extends Phaser.Scene {
     }
 
     eatBait() {
-        
         this.enemy.setVelocity(0)
         this.bait.destroy()
 
         setTimeout(() => {
-            console.log("hoevaakdanbro")
             this.enemy.collideWall()
             this.canpickup = false
             this.baitCounter++
@@ -153,7 +147,6 @@ export class TestScene extends Phaser.Scene {
         //move block when pushed
         if (b.body.touching.left && this.Keyboard.F.isDown) {
             b.setVelocityX(175)
-            this.loopText()
         } else if (b.body.touching.right && this.Keyboard.F.isDown) {
             b.setVelocityX(-175)
         } else if (b.body.touching.up && this.Keyboard.F.isDown) {
@@ -170,7 +163,7 @@ export class TestScene extends Phaser.Scene {
     gameOver(b: characterPush | characterUlt) {
         //play dead animation
         if (b instanceof characterPush) {
-            this.playerPush.die()  
+            this.playerPush.die()
         }
         if (b instanceof characterUlt) {
             this.player.die()
@@ -208,29 +201,11 @@ export class TestScene extends Phaser.Scene {
         }
     }
 
-    loopText() {
-        this.add.rectangle(320, 450, 250, 30, 0xffffff).setDepth(5).setOrigin(0.5)
-        this.add.text(320, 450, this.text[this.i], {
-            fontFamily: 'Arial',
-            fontSize: 12,
-            color: '#ff3434',
-        }).setOrigin(0.5).setDepth(5)
-        console.log(this.i)
-        this.i++
-
-        if (this.i > this.text.length) {
-            this.add.rectangle(320, 450, 250, 30, 0x181424).setDepth(5).setOrigin(0.5)
-        }
-    }
-
     update() {
         if (this.input.keyboard.checkDown(this.keyObj, 500)) {
             this.placeBait()
         }
 
-        if (this.input.keyboard.checkDown(this.keySpace, 500)) {
-            this.loopText()
-        }
         this.enemy.update()
         this.player.update()
         this.playerPush.update()

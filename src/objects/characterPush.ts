@@ -8,8 +8,8 @@ export class characterPush extends Phaser.Physics.Arcade.Sprite {
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     private died: boolean;
 
-    constructor(scene: Phaser.Scene) {
-        super(scene, 200, 415, "characterPush", 0);
+    constructor(scene: Phaser.Scene, x: number, y: number) {
+        super(scene, x, y, "characterPush", 0);
 
         this.died = false
         let g = this.scene.game as MonsterHunter;
@@ -18,7 +18,6 @@ export class characterPush extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this);
         this.setDepth(5);
         this.addPhysics();
-        this.setImmovable(true)
         this.addAnimations();
         this.addParticles();
         this.getCenter()

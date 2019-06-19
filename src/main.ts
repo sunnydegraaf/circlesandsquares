@@ -22,21 +22,24 @@ const config: Phaser.Types.Core.GameConfig = {
       debug: true
     }
   },
+  input: {
+    keyboard: true
+  },
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH
   }
 }
- 
+
 export class MonsterHunter extends Phaser.Game {
 
-  public arcade:Arcade
+  public arcade: Arcade
 
   constructor(config: Phaser.Types.Core.GameConfig) {
-      super(config)
+    super(config)
 
-      // create the arcade once, otherwise we keep connecting/disconnecting every scene
-      this.arcade = new Arcade()
+    // create the arcade once, otherwise we keep connecting/disconnecting every scene
+    this.arcade = new Arcade()
   }
 }
 
