@@ -23,9 +23,6 @@ export class MenuScene extends Phaser.Scene {
 
     document.addEventListener("joystick1button0", () => this.nextGame())
 
-    
-
-
     let background = this.add
       .image(0, 0, "background")
       .setOrigin(0)
@@ -70,7 +67,7 @@ export class MenuScene extends Phaser.Scene {
     })
 
     playButton.on("pointerup", () => {
-      this.scene.start(CST.SCENES.OPENING);
+      this.scene.start(CST.SCENES.TEST);
     });
 
     optionsButton.setInteractive();

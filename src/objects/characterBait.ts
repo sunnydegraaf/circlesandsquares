@@ -1,15 +1,12 @@
-import { PlayScene } from "../scenes/PlayScene";
 import { Arcade } from "../utils/arcade";
 import { MonsterHunter } from "../main";
-import { OpeningScene } from "../scenes/OpeningScene";
 
 export class characterBait extends Phaser.Physics.Arcade.Sprite {
-  private playScene: PlayScene;
   private keyboard: any;
   private arcade: Arcade;
   private emitter: Phaser.GameObjects.Particles.ParticleEmitter;
 
-  constructor(scene: PlayScene | OpeningScene) {
+  constructor(scene: Phaser.Scene) {
     super(scene, 144, 415, "characterBait");
 
     let g = this.scene.game as MonsterHunter;

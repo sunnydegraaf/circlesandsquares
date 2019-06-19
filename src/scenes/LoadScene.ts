@@ -12,7 +12,7 @@ export class LoadScene extends Phaser.Scene {
       frameHeight: 32
     });
 
-    this.load.spritesheet("monster", require("../assets/image/enemy.png"), {
+    this.load.spritesheet("monster", require("../assets/image/monster.png"), {
       frameWidth: 32,
       frameHeight: 32
     });
@@ -48,7 +48,15 @@ export class LoadScene extends Phaser.Scene {
       frameHeight: 32
     });
 
+    this.load.spritesheet("characterUlt", require("../assets/image/adventurer.png"), {
+      frameWidth: 32,
+      frameHeight: 32
+    });
 
+    this.load.spritesheet("characterPush", require("../assets/image/buffguy.png"), {
+      frameWidth: 32,
+      frameHeight: 32
+    });
   }
 
   preload() {

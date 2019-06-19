@@ -1,14 +1,10 @@
-import { PlayScene } from "../scenes/PlayScene";
-import { OpeningScene } from "../scenes/OpeningScene";
-
 export class enemy extends Phaser.Physics.Arcade.Sprite {
-  private playScene: PlayScene;
   private walking_distance: number;
   private new_position: number | undefined;
   private direction: number;
   private previous_position: number;
 
-  constructor(scene: PlayScene | OpeningScene, x:number, y:number) {
+  constructor(scene: Phaser.Scene, x:number, y:number) {
     super(scene, x, y, "monster");
 
     this.scene.add.existing(this);
@@ -17,8 +13,8 @@ export class enemy extends Phaser.Physics.Arcade.Sprite {
     this.addAnimations();
     this.play("walkenemy", true);
     this.setVelocityY(-100);
-    this.body.setSize(32,20)
-    this.body.setOffset(0,2.5)
+    this.body.setSize(25,20)
+    this.setScale(1.2)
     this.flipX = true;
     this.walking_distance = Phaser.Math.Between(98, 255);
     this.direction = this.angle;
@@ -35,10 +31,19 @@ export class enemy extends Phaser.Physics.Arcade.Sprite {
     this.scene.anims.create({
       key: "walkenemy",
       frames: this.scene.anims.generateFrameNumbers("monster", {
-        start: 0,
-        end: 3
+        start: 9,
+        end: 13
       }),
       repeat: -1,
+      frameRate: 10
+    });
+
+    this.scene.anims.create({
+      key: "enemyidle",
+      frames: this.scene.anims.generateFrameNumbers("monster", {
+        start: 0,
+        end: 7
+      }),
       frameRate: 10
     });
   }
@@ -47,13 +52,17 @@ export class enemy extends Phaser.Physics.Arcade.Sprite {
     // AI movement
     let direction = Phaser.Math.Between(1, 4);
     if (direction == 1) {
+      this.play("walkenemy")
       this.setVelocityY(-100);
     } else if (direction == 2) {
+      this.play("walkenemy")
       this.setVelocityY(100);
     } else if (direction == 3) {
+      this.play("walkenemy")
       this.setVelocityX(100);
       this.flipX = false;
     } else {
+      this.play("walkenemy")
       this.setVelocityX(-100);
       this.flipX = true;
     }
@@ -89,11 +98,6 @@ public upDown() {
   // }
 
   public update() {
-    //test for better ai
-    // this.new_position =  this.x;
-    // if (Math.abs(this.new_position - this.previous_position) >= this.walking_distance) {
-    //     this.switch_direction();
-    // }
   }
 
   public switch_direction() {

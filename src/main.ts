@@ -5,13 +5,14 @@ import { MenuScene } from "./scenes/MenuScene";
 import { OpeningScene } from "./scenes/OpeningScene";
 import { PlayScene } from "./scenes/PlayScene";
 import { GameOverScene } from "./scenes/GameOverScene";
+import { TestScene } from "./scenes/TestScene";
 
 
 
 const config: Phaser.Types.Core.GameConfig = {
   width: 640,
   height: 480,
-  scene: [LoadScene, MenuScene, OpeningScene, PlayScene, GameOverScene],
+  scene: [LoadScene, MenuScene, OpeningScene, PlayScene, GameOverScene, TestScene],
   render: {
     pixelArt: true
   },
