@@ -88,6 +88,7 @@ export class OpeningScene extends Phaser.Scene {
         // this.physics.add.collider(this.enemy, this.blockGroup, this.loopText, null, this)
 
         this.physics.add.collider(this.blockGroup, top)
+        this.physics.add.collider(this.blockGroup, wall)
 
         this.physics.add.overlap(this.player, this.baitGroup, this.pickupBait, null, this)
 
@@ -105,9 +106,7 @@ export class OpeningScene extends Phaser.Scene {
     }
 
     toPlayScene() {
-        this.scene.events.on
-        this.scene.events.on('transitioninit', function(fromScene, duration)){});
-
+        // this.camera.fade(0x000000, 1000);
         this.scene.start(CST.SCENES.PLAY);
     }
 
