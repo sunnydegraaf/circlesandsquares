@@ -83,9 +83,9 @@ export class GameOverScene extends Phaser.Scene {
         
 
         this.add
-            .image(0, 0, "background")
-            .setOrigin(0)
-            .setDepth(0);
+        .image(0, 0, "background")
+        .setOrigin(0)
+        .setDepth(0);
     }
 
     private nextGame() {

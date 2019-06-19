@@ -18,15 +18,28 @@ export class OpeningScene extends Phaser.Scene {
     private Keyboard: any
     private i!: number
     private text!: [string, string, string, string];
+    private style!: any;
+    private counter!: number;
 
     constructor() {
         super({
             key: CST.SCENES.OPENING
         });
 
-        this.text = ['Raak de enemy met het blok', 'Blokken stoppen als ze een enemy raken', 'Loop naar de uitgang', 'Kunnen loopen']
+        this.style = { 
+            fontFamily: 'Arial', 
+            fontSize: 12, 
+            color: '#E1E1D4', 
+        }
+
+        this.text = ['Raak de enemy met het blok', 
+                     'Blokken stoppen als ze een enemy raken', 
+                     'Loop naar de uitgang', 
+                     'Kunnen loopen']
 
         this.i = 0
+
+        this.counter = 0
 
         document.addEventListener("joystick1button1", () => this.placeBait ())
         this.baitCounter = 3;
@@ -34,11 +47,11 @@ export class OpeningScene extends Phaser.Scene {
 
     create() {
 
-        this.add.rectangle(320, 450, 250, 30, 0xffffff,).setDepth(5).setOrigin(0.5)
-        this.add.text(320, 450, 'Klik op F om een blok te verschuiven', { 
+        this.add.rectangle(320, 428, 250, 30, 0x549393,).setDepth(5).setOrigin(0.5)
+        this.add.text(320, 428, 'Klik op F om een blok te verschuiven', { 
             fontFamily: 'Arial', 
             fontSize: 12, 
-            color: '#ff3434', 
+            color: '#E1E1D4', 
         }).setOrigin(0.5).setDepth(5)
         
 
@@ -50,6 +63,7 @@ export class OpeningScene extends Phaser.Scene {
         let ground = openingMap.createStaticLayer("ground", [terrain], 0, 0).setDepth(0);
         let wall = openingMap.createStaticLayer("wall", [terrain], 0, 0).setDepth(1);
         let top = openingMap.createStaticLayer("top", [terrain], 0, 0).setDepth(2);
+        let exit = openingMap.createStaticLayer("exit", [terrain], 0, 0).setDepth(3);
         
          // pushable blocks
          let pushableBlocks = [];
@@ -74,6 +88,7 @@ export class OpeningScene extends Phaser.Scene {
         this.physics.add.collider(this.player, ground);
         this.physics.add.collider(this.player, wall);
         this.physics.add.collider(this.player, top);
+        this.physics.add.collider(this.player, exit, this.toPlayScene, null, this);
 
         this.physics.add.collider(this.player, this.blockGroup, this.bounceWall, null, this)
         this.physics.add.collider(this.player, this.enemy, this.gameOver, null, this)
@@ -83,9 +98,9 @@ export class OpeningScene extends Phaser.Scene {
         this.physics.add.collider(this.enemy, top, this.collidewall, null, this);
 
         this.physics.add.collider(this.enemy, this.blockGroup, this.enemyDie, null, this)
-        // this.physics.add.collider(this.enemy, this.blockGroup, this.loopText, null, this)
 
         this.physics.add.collider(this.blockGroup, top)
+        this.physics.add.collider(this.blockGroup, wall)
 
         this.physics.add.overlap(this.player, this.baitGroup, this.pickupBait, null, this)
 
@@ -93,11 +108,19 @@ export class OpeningScene extends Phaser.Scene {
         ground.setCollisionByProperty({ collides: true });
         wall.setCollisionByProperty({ collides: true });
         top.setCollisionByProperty({ collides: true });
+        exit.setCollisionByProperty({ collides: true });
+
 
         this.keyObj = this.input.keyboard.addKey('B');  // Get key object
         this.Keyboard = this.input.keyboard.addKeys("F");
         this.keySpace = this.input.keyboard.addKey('Space');
 
+        openingMap.setTileIndexCallback(22, this.placeBait, this.player,)
+    }
+
+    toPlayScene() {
+        // this.camera.fade(0x000000, 1000);
+        this.scene.start(CST.SCENES.PLAY);
     }
 
     placeBait() {
@@ -115,7 +138,7 @@ export class OpeningScene extends Phaser.Scene {
         //move block when pushed
         if (b.body.touching.left && this.Keyboard.F.isDown) {
             b.setVelocityX(175)
-            this.loopText()
+            this.blockText()
         } else if (b.body.touching.right && this.Keyboard.F.isDown) {
             b.setVelocityX(-175)
         } else if (b.body.touching.up && this.Keyboard.F.isDown) {
@@ -142,6 +165,8 @@ export class OpeningScene extends Phaser.Scene {
         if (b.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
             e.destroy()
 
+            this.enemyText()
+
             var particles = this.add.particles('blood');
 
             this.emitter = particles.createEmitter({
@@ -156,7 +181,6 @@ export class OpeningScene extends Phaser.Scene {
                 this.emitter.stop()
             }, 300);
 
-
             // slow block down
             setTimeout(() => {
                 b.setVelocity(0);
@@ -165,21 +189,45 @@ export class OpeningScene extends Phaser.Scene {
             this.collidewall(e)
         }
     }
+
+    //loop through array
+    displayText(i) {
+        this.add.text(320, 428, this.text[this.i], this.style).setOrigin(0.5).setDepth(5)
+    }
+
+    makeRectangle() {
+        this.add.rectangle(320, 428, 250, 30, 0x549393,).setDepth(5).setOrigin(0.5)
+    }
     
-    loopText() {
-        this.add.rectangle(320, 450, 250, 30, 0xffffff,).setDepth(5).setOrigin(0.5)
-        this.add.text(320, 450, this.text[this.i], { 
-            fontFamily: 'Arial', 
-            fontSize: 12, 
-            color: '#ff3434', 
-        }).setOrigin(0.5).setDepth(5)
-        console.log(this.i)
-        this.i++
-       
-        if(this.i > this.text.length) {
-            this.add.rectangle(320, 450, 250, 30, 0x181424,).setDepth(5).setOrigin(0.5)
+    //text display when player collides with block
+    blockText() 
+    {
+        if(this.counter == 0) {
+        this.makeRectangle() 
+        this.displayText(this.i = 0)
+        this.counter++
         }
     }
+
+    //text display when block collides with enemy
+    enemyText() {
+        if(this.counter == 1) {
+        this.makeRectangle() 
+        this.displayText(this.i = 1)
+        this.counter++
+        }
+    }
+    
+
+    // loopText() {
+    //     this.makeRectangle()
+    //     this.add.text(320, 428, this.text[this.i], this.style).setOrigin(0.5).setDepth(5)
+    //     this.i++
+       
+    //     if(this.i > this.text.length) {
+    //         this.add.rectangle(320, 428, 250, 30, 0x181424,).setDepth(5).setOrigin(0.5)
+    //     }
+    // }
 
     update() {
         if (this.input.keyboard.checkDown(this.keyObj, 500)) {
@@ -187,11 +235,10 @@ export class OpeningScene extends Phaser.Scene {
         }
 
         if (this.input.keyboard.checkDown(this.keySpace, 500)) {
-            this.loopText()
+
         }
         
         this.player.update()
         
         }
 }
-

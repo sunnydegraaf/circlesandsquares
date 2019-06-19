@@ -78,6 +78,8 @@ export class PlayScene extends Phaser.Scene {
         this.physics.add.collider(this.enemyGroup, this.top, this.collidewall, null, this);
 
         this.physics.add.collider(this.enemyGroup, this.blockGroup, this.enemyDie, null, this)
+        this.physics.add.collider(this.blockGroup, this.blockGroup, this.blockDestroy, null, this)
+
 
         this.physics.add.collider(this.blockGroup, this.top)
 
@@ -90,6 +92,7 @@ export class PlayScene extends Phaser.Scene {
 
         this.keyObj= this.input.keyboard.addKey('B');  // Get key object
         this.Keyboard = this.input.keyboard.addKeys("F");
+        
     }
 
     placeBait() {
@@ -178,6 +181,35 @@ export class PlayScene extends Phaser.Scene {
         }
 
 
+    }
+
+    blockDestroy(s: pushBlock, b: pushBlock) {
+        if (s.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
+            s.destroy()
+
+            var particles = this.add.particles('smokeblock');
+
+            this.emitter = particles.createEmitter({
+                lifespan: 300,
+                speed: 75,
+                scale: { start: 0.1, end: 0.05 },
+                x: s.x,
+                y: s.y + 20
+            });
+
+            //slow block down
+            setTimeout(() => {
+                b.setVelocity(0);
+            }, 150);
+
+            setTimeout(() => {
+                this.emitter.stop()
+            }, 300);
+
+
+        } else {
+            this.collidewall(s)
+        }
     }
 
     update() {
