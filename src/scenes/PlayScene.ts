@@ -3,6 +3,7 @@ import { characterBait } from "../objects/characterBait"
 import { pushBlock } from "../objects/pushBlock"
 import { enemy } from "../objects/enemy";
 import { bait } from "../objects/bait";
+import { OpeningScene } from "./OpeningScene";
 
 export class PlayScene extends Phaser.Scene {
     private player: characterBait;
@@ -82,13 +83,14 @@ export class PlayScene extends Phaser.Scene {
 
         this.physics.add.collider(this.blockGroup, this.top)
 
+        this.mappy.setTileIndexCallback(5, this.placeBait, this.player)
 
         //tile property collisions
         this.ground.setCollisionByProperty({ collides: true });
         this.wall.setCollisionByProperty({ collides: true });
         this.top.setCollisionByProperty({ collides: true });
 
-        this.keyObj = this.input.keyboard.addKey('B');  // Get key object
+        this.keyObj= this.input.keyboard.addKey('B');  // Get key object
         this.Keyboard = this.input.keyboard.addKeys("F");
         
     }
