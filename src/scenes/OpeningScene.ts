@@ -34,11 +34,11 @@ export class OpeningScene extends Phaser.Scene {
 
     create() {
 
-        this.add.rectangle(320, 450, 250, 30, 0xffffff,).setDepth(5).setOrigin(0.5)
-        this.add.text(320, 450, 'Klik op F om een blok te verschuiven', { 
+        this.add.rectangle(320, 428, 250, 30, 0x549393,).setDepth(5).setOrigin(0.5)
+        this.add.text(320, 428, 'Klik op F om een blok te verschuiven', { 
             fontFamily: 'Arial', 
             fontSize: 12, 
-            color: '#ff3434', 
+            color: '#E1E1D4', 
         }).setOrigin(0.5).setDepth(5)
         
 
@@ -50,6 +50,7 @@ export class OpeningScene extends Phaser.Scene {
         let ground = openingMap.createStaticLayer("ground", [terrain], 0, 0).setDepth(0);
         let wall = openingMap.createStaticLayer("wall", [terrain], 0, 0).setDepth(1);
         let top = openingMap.createStaticLayer("top", [terrain], 0, 0).setDepth(2);
+        let exit = openingMap.createStaticLayer("exit", [terrain], 0, 0).setDepth(3);
         
          // pushable blocks
          let pushableBlocks = [];
@@ -74,6 +75,7 @@ export class OpeningScene extends Phaser.Scene {
         this.physics.add.collider(this.player, ground);
         this.physics.add.collider(this.player, wall);
         this.physics.add.collider(this.player, top);
+        this.physics.add.collider(this.player, exit, this.toPlayScene, null, this);
 
         this.physics.add.collider(this.player, this.blockGroup, this.bounceWall, null, this)
         this.physics.add.collider(this.player, this.enemy, this.gameOver, null, this)
@@ -93,11 +95,20 @@ export class OpeningScene extends Phaser.Scene {
         ground.setCollisionByProperty({ collides: true });
         wall.setCollisionByProperty({ collides: true });
         top.setCollisionByProperty({ collides: true });
+        exit.setCollisionByProperty({ collides: true });
+
 
         this.keyObj = this.input.keyboard.addKey('B');  // Get key object
         this.Keyboard = this.input.keyboard.addKeys("F");
         this.keySpace = this.input.keyboard.addKey('Space');
 
+    }
+
+    toPlayScene() {
+        this.scene.events.on
+        this.scene.events.on('transitioninit', function(fromScene, duration)){});
+
+        this.scene.start(CST.SCENES.PLAY);
     }
 
     placeBait() {
@@ -167,17 +178,17 @@ export class OpeningScene extends Phaser.Scene {
     }
     
     loopText() {
-        this.add.rectangle(320, 450, 250, 30, 0xffffff,).setDepth(5).setOrigin(0.5)
-        this.add.text(320, 450, this.text[this.i], { 
+        this.add.rectangle(320, 428, 250, 30, 0x549393,).setDepth(5).setOrigin(0.5)
+        this.add.text(320, 428, this.text[this.i], { 
             fontFamily: 'Arial', 
             fontSize: 12, 
-            color: '#ff3434', 
+            color: '#E1E1D4', 
         }).setOrigin(0.5).setDepth(5)
         console.log(this.i)
         this.i++
        
         if(this.i > this.text.length) {
-            this.add.rectangle(320, 450, 250, 30, 0x181424,).setDepth(5).setOrigin(0.5)
+            this.add.rectangle(320, 428, 250, 30, 0x181424,).setDepth(5).setOrigin(0.5)
         }
     }
 
@@ -187,7 +198,7 @@ export class OpeningScene extends Phaser.Scene {
         }
 
         if (this.input.keyboard.checkDown(this.keySpace, 500)) {
-            this.loopText()
+
         }
         
         this.player.update()
