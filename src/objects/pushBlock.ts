@@ -4,6 +4,7 @@ import { OpeningScene } from "../scenes/OpeningScene";
 export class pushBlock extends Phaser.Physics.Arcade.Sprite {
 
     private playScene: PlayScene
+    private OpeningScene: OpeningScene
     private emitter: Phaser.GameObjects.Particles.ParticleEmitter;
 
 

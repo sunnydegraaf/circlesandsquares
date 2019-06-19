@@ -1,6 +1,7 @@
 import { PlayScene } from "../scenes/PlayScene";
 import { Arcade } from "../utils/arcade";
 import { MonsterHunter } from "../main";
+import { OpeningScene } from "../scenes/OpeningScene";
 
 export class characterBait extends Phaser.Physics.Arcade.Sprite {
   private playScene: PlayScene;
@@ -8,13 +9,11 @@ export class characterBait extends Phaser.Physics.Arcade.Sprite {
   private arcade: Arcade;
   private emitter: Phaser.GameObjects.Particles.ParticleEmitter;
 
-  constructor(scene: PlayScene) {
+  constructor(scene: PlayScene | OpeningScene) {
     super(scene, 144, 415, "characterBait");
 
     let g = this.scene.game as MonsterHunter;
     this.arcade = g.arcade;
-
-    this.playScene = scene;
 
     this.scene.add.existing(this);
     this.setDepth(5);

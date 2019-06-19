@@ -183,7 +183,6 @@ export class PlayScene extends Phaser.Scene {
             this.placeBait()
         }
         this.player.update()
-        this.enemy.update()
         
     }
 }
