@@ -51,6 +51,8 @@ export class OpeningScene extends Phaser.Scene {
         let wall = openingMap.createStaticLayer("wall", [terrain], 0, 0).setDepth(1);
         let top = openingMap.createStaticLayer("top", [terrain], 0, 0).setDepth(2);
         let exit = openingMap.createStaticLayer("exit", [terrain], 0, 0).setDepth(3);
+
+        //22, 23
         
          // pushable blocks
          let pushableBlocks = [];
