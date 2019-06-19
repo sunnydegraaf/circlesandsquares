@@ -425,7 +425,6 @@ exports.CST = {
   SCENES: {
     LOAD: "LOAD",
     MENU: "MENU",
-    OPENING: "OPENING",
     PLAY: "PLAY",
     GAMEOVER: "GAMEOVER"
   },
@@ -451,6 +450,10 @@ module.exports = "/play_button2.cb213a99.png";
 module.exports = "/options_button2.855eb198.png";
 },{}],"assets/image/background2.jpg":[function(require,module,exports) {
 module.exports = "/background2.80d45458.jpg";
+},{}],"assets/image/restart_button.png":[function(require,module,exports) {
+module.exports = "/restart_button.d0b2016b.png";
+},{}],"assets/image/menu_button.png":[function(require,module,exports) {
+module.exports = "/menu_button.7f7689a0.png";
 },{}],"assets/image/tileset_dungeon2.png":[function(require,module,exports) {
 module.exports = "/tileset_dungeon2.3d3957b7.png";
 },{}],"assets/maps/level1.json":[function(require,module,exports) {
@@ -623,7 +626,7 @@ module.exports = {
   "tilesets": [{
     "columns": 8,
     "firstgid": 1,
-    "image": "..\/..\/..\/..\/..\/..\/Downloads\/tileset_dungeon2.png",
+    "image": "..\/..\/..\/..\/..\/..\/Downloads\/dungeonTileset.png",
     "imageheight": 256,
     "imagewidth": 256,
     "margin": 0,
@@ -721,557 +724,6 @@ module.exports = {
   "version": 1.2,
   "width": 20
 };
-},{}],"assets/maps/test.json":[function(require,module,exports) {
-module.exports = {
-  "height": 15,
-  "infinite": false,
-  "layers": [{
-    "data": "MAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAACoAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAqAAAAKgAAADAAAAAwAAAAMAAAACoAAAAwAAAAMAAAADAAAAAwAAAAKgAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAKgAAACoAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAqAAAAMAAAACoAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAqAAAAMAAAACoAAAAwAAAAKgAAADAAAAAwAAAAMAAAACoAAAAwAAAAKgAAADAAAAAwAAAAKgAAACoAAAAwAAAAKgAAADAAAAAqAAAAKgAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAKgAAADAAAAAqAAAAMAAAADAAAAAwAAAAMAAAACoAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAKgAAACoAAAAwAAAAMAAAADAAAAAqAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAKgAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAKgAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAA",
-    "encoding": "base64",
-    "height": 15,
-    "id": 1,
-    "name": "ground",
-    "opacity": 1,
-    "type": "tilelayer",
-    "visible": false,
-    "width": 20,
-    "x": 0,
-    "y": 0
-  }, {
-    "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-    "encoding": "base64",
-    "height": 15,
-    "id": 2,
-    "name": "wall",
-    "opacity": 1,
-    "type": "tilelayer",
-    "visible": false,
-    "width": 20,
-    "x": 0,
-    "y": 0
-  }, {
-    "data": "LgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAA9AAAANgAAADYAAAA2AAAANgAAADYAAAA2AAAAPgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAA9AAAANgAAADYAAAA2AAAAPQAAADcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1AAAANgAAAD4AAAAuAAAALgAAAC4AAAA9AAAANgAAADcAAAAAAAAAAAAAAAAAAAA3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANQAAADYAAAA2AAAANgAAADcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAAAACwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgAAACYAAAAnAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAsAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAAAAAAAAAAAAAAAAAAAAAJQAAACYAAAAuAAAALgAAAD8AAAAmAAAAJwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACUAAABAAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAAJwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlAAAAQAAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAA\/AAAAJgAAACYAAAAmAAAAJgAAACYAAAAmAAAAJgAAACYAAAAmAAAAJgAAAEAAAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAALgAAAC4AAAAuAAAA",
-    "encoding": "base64",
-    "height": 15,
-    "id": 3,
-    "name": "top",
-    "opacity": 1,
-    "type": "tilelayer",
-    "visible": true,
-    "width": 20,
-    "x": 0,
-    "y": 0
-  }, {
-    "draworder": "topdown",
-    "id": 4,
-    "name": "pushBlocks",
-    "objects": [{
-      "gid": 52,
-      "height": 32,
-      "id": 22,
-      "name": "",
-      "rotation": 0,
-      "type": "",
-      "visible": true,
-      "width": 32,
-      "x": 192,
-      "y": 320
-    }, {
-      "gid": 52,
-      "height": 32,
-      "id": 23,
-      "name": "",
-      "rotation": 0,
-      "type": "",
-      "visible": true,
-      "width": 32,
-      "x": 448,
-      "y": 224
-    }],
-    "opacity": 1,
-    "properties": [{
-      "name": "pushableBlocks",
-      "type": "bool",
-      "value": true
-    }],
-    "type": "objectgroup",
-    "visible": false,
-    "x": 0,
-    "y": 0
-  }],
-  "nextlayerid": 5,
-  "nextobjectid": 24,
-  "orientation": "orthogonal",
-  "renderorder": "right-down",
-  "tiledversion": "1.2.4",
-  "tileheight": 32,
-  "tilesets": [{
-    "columns": 8,
-    "firstgid": 1,
-    "image": "..\/image\/tileset_dungeon2.png",
-    "imageheight": 256,
-    "imagewidth": 256,
-    "margin": 0,
-    "name": "tilesetDungeon",
-    "spacing": 0,
-    "tilecount": 64,
-    "tileheight": 32,
-    "tiles": [{
-      "id": 0,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 1,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 2,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 3,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 4,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 5,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 6,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 7,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 8,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 9,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 10,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 11,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 12,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 13,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 14,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 15,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 16,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 17,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 18,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 19,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 20,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 21,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 22,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 23,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 24,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 25,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 26,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 27,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 28,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 29,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 30,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 31,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 32,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 33,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 34,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 35,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 36,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 37,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 38,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 39,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 40,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 41,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": false
-      }]
-    }, {
-      "id": 42,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 43,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 44,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 45,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 46,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 47,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": false
-      }]
-    }, {
-      "id": 48,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 49,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 50,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 51,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 52,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 53,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 54,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 55,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 56,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 57,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 58,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 59,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 60,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 61,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 62,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }, {
-      "id": 63,
-      "properties": [{
-        "name": "collides",
-        "type": "bool",
-        "value": true
-      }]
-    }],
-    "tilewidth": 32
-  }],
-  "tilewidth": 32,
-  "type": "map",
-  "version": 1.2,
-  "width": 20
-};
 },{}],"scenes/LoadScene.ts":[function(require,module,exports) {
 "use strict";
 
@@ -1334,6 +786,8 @@ function (_Phaser$Scene) {
       this.load.image("play_button", require("../assets/image/play_button2.png"));
       this.load.image("options_button", require("../assets/image/options_button2.png"));
       this.load.image("background", require("../assets/image/background2.jpg"));
+      this.load.image("restart_button", require("../assets/image/restart_button.png"));
+      this.load.image("menu_button", require("../assets/image/menu_button.png"));
     }
   }, {
     key: "preload",
@@ -1343,9 +797,7 @@ function (_Phaser$Scene) {
       this.loadImages(); //load map
 
       this.load.image("Dungeon", require("../assets/image/tileset_dungeon2.png"));
-      this.load.tilemapTiledJSON("mappy", require("../assets/maps/level1.json")); //opening map
-
-      this.load.tilemapTiledJSON("openingScene", require("../assets/maps/test.json")); // loading bar
+      this.load.tilemapTiledJSON("mappy", require("../assets/maps/level1.json")); // loading bar
 
       var progressBar = this.add.graphics();
       var progressBox = this.add.graphics();
@@ -1405,7 +857,7 @@ function (_Phaser$Scene) {
         _this.scene.start(CST_1.CST.SCENES.MENU);
       }); //simulate large load
 
-      for (var i = 0; i < 100; i++) {
+      for (var i = 0; i < 200; i++) {
         this.load.spritesheet("cat" + i, "./assets/cat.png", {
           frameHeight: 32,
           frameWidth: 32
@@ -1418,7 +870,7 @@ function (_Phaser$Scene) {
 }(Phaser.Scene);
 
 exports.LoadScene = LoadScene;
-},{"../CST":"CST.ts","../assets/image/block.png":"assets/image/block.png","../assets/image/enemy.png":"assets/image/enemy.png","../assets/image/character.png":"assets/image/character.png","../assets/image/Food.png":"assets/image/Food.png","../assets/image/play_button2.png":"assets/image/play_button2.png","../assets/image/options_button2.png":"assets/image/options_button2.png","../assets/image/background2.jpg":"assets/image/background2.jpg","../assets/image/tileset_dungeon2.png":"assets/image/tileset_dungeon2.png","../assets/maps/level1.json":"assets/maps/level1.json","../assets/maps/test.json":"assets/maps/test.json"}],"scenes/MenuScene.ts":[function(require,module,exports) {
+},{"../CST":"CST.ts","../assets/image/block.png":"assets/image/block.png","../assets/image/enemy.png":"assets/image/enemy.png","../assets/image/character.png":"assets/image/character.png","../assets/image/Food.png":"assets/image/Food.png","../assets/image/play_button2.png":"assets/image/play_button2.png","../assets/image/options_button2.png":"assets/image/options_button2.png","../assets/image/background2.jpg":"assets/image/background2.jpg","../assets/image/restart_button.png":"assets/image/restart_button.png","../assets/image/menu_button.png":"assets/image/menu_button.png","../assets/image/tileset_dungeon2.png":"assets/image/tileset_dungeon2.png","../assets/maps/level1.json":"assets/maps/level1.json"}],"scenes/MenuScene.ts":[function(require,module,exports) {
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -1473,7 +925,7 @@ function (_Phaser$Scene) {
       var optionsButton = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2 + 100, "options_button").setDepth(1);
       playButton.setInteractive();
       playButton.on("pointerup", function () {
-        _this.scene.start(CST_1.CST.SCENES.OPENING);
+        _this.scene.start(CST_1.CST.SCENES.PLAY);
       });
       optionsButton.setInteractive();
       optionsButton.on("pointerup", function () {//options
@@ -1684,6 +1136,7 @@ function (_Phaser$Physics$Arcad) {
     _classCallCheck(this, pushBlock);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(pushBlock).call(this, scene, x, y, "pushBlock"));
+    _this.playScene = scene;
 
     _this.scene.add.existing(_assertThisInitialized(_this));
 
@@ -1870,212 +1323,7 @@ function (_Phaser$Physics$Arcad) {
 }(Phaser.Physics.Arcade.Sprite);
 
 exports.bait = bait;
-},{}],"scenes/OpeningScene.ts":[function(require,module,exports) {
-"use strict";
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var CST_1 = require("../CST");
-
-var characterBait_1 = require("../objects/characterBait");
-
-var pushBlock_1 = require("../objects/pushBlock");
-
-var enemy_1 = require("../objects/enemy");
-
-var bait_1 = require("../objects/bait");
-
-var OpeningScene =
-/*#__PURE__*/
-function (_Phaser$Scene) {
-  _inherits(OpeningScene, _Phaser$Scene);
-
-  function OpeningScene() {
-    var _this;
-
-    _classCallCheck(this, OpeningScene);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(OpeningScene).call(this, {
-      key: CST_1.CST.SCENES.OPENING
-    }));
-    _this.text = ['We gaan kijken', 'Of we', 'Door de tekst', 'Kunnen loopen'];
-    _this.i = 0;
-    document.addEventListener("joystick1button1", function () {
-      return _this.placeBait();
-    });
-    _this.baitCounter = 3;
-    return _this;
-  }
-
-  _createClass(OpeningScene, [{
-    key: "create",
-    value: function create() {
-      //map
-      var openingMap = this.add.tilemap("openingScene");
-      var terrain = openingMap.addTilesetImage("tilesetDungeon", "Dungeon"); //layers
-
-      var ground = openingMap.createStaticLayer("ground", [terrain], 0, 0).setDepth(0);
-      var wall = openingMap.createStaticLayer("wall", [terrain], 0, 0).setDepth(1);
-      var top = openingMap.createStaticLayer("top", [terrain], 0, 0).setDepth(2); // pushable blocks
-
-      var pushableBlocks = [];
-      pushableBlocks = openingMap.createFromObjects("pushBlocks", 52, {
-        key: "pushBlock"
-      });
-      console.log(pushableBlocks);
-      this.blockGroup = this.physics.add.group();
-
-      for (var i = 0; i < pushableBlocks.length; i++) {
-        this.blockGroup.add(new pushBlock_1.pushBlock(this, pushableBlocks[i].x, pushableBlocks[i].y));
-      } //bait
-
-
-      this.baitGroup = this.add.group({
-        runChildUpdate: true
-      }); // players
-
-      this.player = new characterBait_1.characterBait(this); // enemies
-
-      this.enemy = new enemy_1.enemy(this); //map collisions
-
-      this.physics.add.collider(this.player, ground);
-      this.physics.add.collider(this.player, wall);
-      this.physics.add.collider(this.player, top);
-      this.physics.add.collider(this.player, this.blockGroup, this.bounceWall, undefined, this);
-      this.physics.add.collider(this.player, this.enemy, this.gameOver, undefined, this);
-      this.physics.add.collider(this.enemy, ground);
-      this.physics.add.collider(this.enemy, wall);
-      this.physics.add.collider(this.enemy, top, this.collidewall, undefined, this);
-      this.physics.add.collider(this.enemy, this.blockGroup, this.enemyDie, undefined, this);
-      this.physics.add.collider(this.blockGroup, top);
-      this.physics.add.overlap(this.player, this.baitGroup, this.pickupBait, undefined, this); //tile property collisions
-
-      ground.setCollisionByProperty({
-        collides: true
-      });
-      wall.setCollisionByProperty({
-        collides: true
-      });
-      top.setCollisionByProperty({
-        collides: true
-      });
-      this.keyObj = this.input.keyboard.addKey('B'); // Get key object
-
-      this.Keyboard = this.input.keyboard.addKeys("F");
-      this.keySpace = this.input.keyboard.addKey('Space');
-    }
-  }, {
-    key: "placeBait",
-    value: function placeBait() {
-      if (this.baitCounter !== 0) {
-        this.baitGroup.add(new bait_1.bait(this, this.player.x, this.player.y), true);
-        this.baitCounter--;
-      }
-    }
-  }, {
-    key: "pickupBait",
-    value: function pickupBait(b) {
-      console.log("moi");
-    }
-  }, {
-    key: "bounceWall",
-    value: function bounceWall(b) {
-      //move block when pushed
-      if (b.body.touching.left && this.Keyboard.F.isDown) b.setVelocityX(175);else if (b.body.touching.right && this.Keyboard.F.isDown) {
-        b.setVelocityX(-175);
-      } else if (b.body.touching.up && this.Keyboard.F.isDown) {
-        b.setVelocityY(175);
-      } else if (b.body.touching.down && this.Keyboard.F.isDown) {
-        b.setVelocityY(-175);
-      }
-    }
-  }, {
-    key: "collidewall",
-    value: function collidewall() {
-      // @ts-ignore
-      this.enemy.collideWall();
-    }
-  }, {
-    key: "gameOver",
-    value: function gameOver() {
-      this.scene.start("gameover");
-    }
-  }, {
-    key: "enemyDie",
-    value: function enemyDie(b) {
-      if (b.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
-        this.enemy.destroy(); // slow block down
-
-        setTimeout(function () {
-          b.setVelocity(0);
-        }, 150);
-      } else {
-        this.collidewall();
-      }
-    }
-  }, {
-    key: "removeText",
-    value: function removeText() {
-      this.text.setVisible(true);
-    }
-  }, {
-    key: "loopText",
-    value: function loopText() {
-      this.add.rectangle(320, 450, 150, 30, 0xffffff).setDepth(5).setOrigin(0.5);
-      this.add.text(320, 450, this.text[this.i], {
-        fontFamily: 'Arial',
-        fontSize: 12,
-        color: '#ff3434'
-      }).setOrigin(0.5).setDepth(5);
-      console.log(this.i);
-      this.i++;
-
-      if (this.i > this.text.length) {
-        console.log('delete');
-        this.add.rectangle(320, 450, 150, 30, 0x181424).setDepth(5).setOrigin(0.5);
-      }
-    }
-  }, {
-    key: "update",
-    value: function update() {
-      if (this.input.keyboard.checkDown(this.keyObj, 500)) {
-        this.placeBait();
-      }
-
-      if (this.input.keyboard.checkDown(this.keySpace, 500)) {
-        this.loopText();
-      }
-
-      this.player.update();
-      this.enemy.update();
-    }
-  }]);
-
-  return OpeningScene;
-}(Phaser.Scene);
-
-exports.OpeningScene = OpeningScene;
-},{"../CST":"CST.ts","../objects/characterBait":"objects/characterBait.ts","../objects/pushBlock":"objects/pushBlock.ts","../objects/enemy":"objects/enemy.ts","../objects/bait":"objects/bait.ts"}],"scenes/PlayScene.ts":[function(require,module,exports) {
+},{}],"scenes/PlayScene.ts":[function(require,module,exports) {
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -2295,14 +1543,15 @@ function (_Phaser$Scene) {
     value: function create() {
       var _this = this;
 
-      var playAgainButton = this.add.text(400, 420, 'CLICK TO PLAY AGAIN ', {
-        fontFamily: 'Arial',
-        fontSize: 22,
-        color: '#ff3434'
-      }).setOrigin(0.5).setDepth(5);
-      playAgainButton.setInteractive();
-      playAgainButton.on("pointerup", function () {
+      var restartButton = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2, "restart_button").setDepth(1);
+      var menuButton = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2 + 100, "menu_button").setDepth(1);
+      restartButton.setInteractive();
+      restartButton.on("pointerup", function () {
         _this.scene.start(CST_1.CST.SCENES.PLAY);
+      });
+      menuButton.setInteractive();
+      menuButton.on("pointerup", function () {
+        _this.scene.start(CST_1.CST.SCENES.MENU);
       });
       this.add.image(0, 0, "background").setOrigin(0).setDepth(0);
     }
@@ -2340,8 +1589,6 @@ var LoadScene_1 = require("./scenes/LoadScene");
 
 var MenuScene_1 = require("./scenes/MenuScene");
 
-var OpeningScene_1 = require("./scenes/OpeningScene");
-
 var PlayScene_1 = require("./scenes/PlayScene");
 
 var GameOverScene_1 = require("./scenes/GameOverScene"); // @ts-ignore
@@ -2350,7 +1597,7 @@ var GameOverScene_1 = require("./scenes/GameOverScene"); // @ts-ignore
 var config = {
   width: 640,
   height: 480,
-  scene: [LoadScene_1.LoadScene, MenuScene_1.MenuScene, OpeningScene_1.OpeningScene, PlayScene_1.PlayScene, GameOverScene_1.GameOverScene],
+  scene: [LoadScene_1.LoadScene, MenuScene_1.MenuScene, PlayScene_1.PlayScene, GameOverScene_1.GameOverScene],
   render: {
     pixelArt: true
   },
@@ -2389,7 +1636,7 @@ exports.MonsterHunter = MonsterHunter;
 window.addEventListener("load", function () {
   return new MonsterHunter(config);
 });
-},{"./utils/arcade":"utils/arcade.ts","./scenes/LoadScene":"scenes/LoadScene.ts","./scenes/MenuScene":"scenes/MenuScene.ts","./scenes/OpeningScene":"scenes/OpeningScene.ts","./scenes/PlayScene":"scenes/PlayScene.ts","./scenes/GameOverScene":"scenes/GameOverScene.ts"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./utils/arcade":"utils/arcade.ts","./scenes/LoadScene":"scenes/LoadScene.ts","./scenes/MenuScene":"scenes/MenuScene.ts","./scenes/PlayScene":"scenes/PlayScene.ts","./scenes/GameOverScene":"scenes/GameOverScene.ts"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2417,7 +1664,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59929" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58253" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -2592,5 +1839,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","main.ts"], null)
+},{}]},{},["../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","main.ts"], null)
 //# sourceMappingURL=/main.c39d6dcf.js.map
