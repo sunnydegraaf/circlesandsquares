@@ -118,7 +118,7 @@ export class OpeningScene extends Phaser.Scene {
     this.physics.add.collider(this.playerPush, wall);
     this.physics.add.collider(this.playerPush, top);
 
-    this.physics.add.collider(this.player, this.blockGroup);
+    this.physics.add.collider(this.player, this.blockGroup, this.getSuffocated, null, this);
     this.physics.add.overlap(this.player, this.enemy, this.gameOver, null, this);
 
     this.physics.add.collider(this.playerPush, this.blockGroup, this.bounceWall, null, this);
@@ -130,6 +130,8 @@ export class OpeningScene extends Phaser.Scene {
 
     this.physics.add.collider(this.enemy, this.blockGroup, this.enemyDie, null, this);
     this.physics.add.collider(this.blockGroup, top);
+    this.physics.add.collider(this.blockGroup, wall);
+
 
     this.physics.add.overlap(this.player, this.baitGroup, this.pickupBait, null, this);
 
@@ -200,6 +202,13 @@ export class OpeningScene extends Phaser.Scene {
   collidewall(e: enemy) {
     this.enemy.upDown();
   }
+
+  getSuffocated(p: characterUlt, b: pushBlock){
+    if(b.body.velocity.x !== 0 || b.body.velocity.y !== 0){
+        p.setVelocity(500)
+        this.gameOver(p)
+    }
+}
 
   gameOver(b: characterPush | characterUlt) {
     //play dead animation
