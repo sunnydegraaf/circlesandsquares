@@ -4,6 +4,7 @@ import { enemy } from "../objects/enemy";
 import { bait } from "../objects/bait";
 import { characterUlt } from "../objects/characterUlt";
 import { characterPush } from "../objects/characterPush";
+import { characterBait } from "../objects/characterBait";
 
 export class OpeningScene extends Phaser.Scene {
   private player: characterUlt;
@@ -21,6 +22,7 @@ export class OpeningScene extends Phaser.Scene {
   private canpickup: boolean;
   private style: any;
   private counter: number;
+  private testPlayer: characterBait;
   keyObj: Phaser.Input.Keyboard.Key;
 
   constructor() {
@@ -46,7 +48,7 @@ export class OpeningScene extends Phaser.Scene {
     this.counter = 0;
 
     document.addEventListener("joystick1button1", () => this.placeBait());
-    this.baitCounter = 3;
+    this.baitCounter = 1;
   }
 
   create() {
@@ -102,6 +104,7 @@ export class OpeningScene extends Phaser.Scene {
     this.player = new characterUlt(this, 150, 130);
     this.playerPush = new characterPush(this, 100, 200)
 
+
     // enemies
     this.enemy = new enemy(this, 496, 200);
 
@@ -137,6 +140,8 @@ export class OpeningScene extends Phaser.Scene {
     exit.setCollisionByProperty({ collides: true });
 
     this.keyObj = this.input.keyboard.addKey('B', true, true);  // Get key object
+    this.Keyboard = this.input.keyboard.addKeys("F");
+
   }
 
   toPlayScene() {
@@ -157,24 +162,14 @@ export class OpeningScene extends Phaser.Scene {
   }
 
   pickupBait() {
-    this.keyObj.on('down', (event) => {
-      if (this.canpickup == true
-      ) {
-        this.bait.destroy(true);
-        this.baitCounter++;
-        this.canpickup = false;
-      }
-
-    });
-
-    // if (
-    //   this.input.keyboard.checkDown(this.keyObj, 0) &&
-    //   this.canpickup == true
-    // ) {
-    //   this.bait.destroy(true);
-    //   this.baitCounter++;
-    //   this.canpickup = false;
-    // }
+    if (
+      this.input.keyboard.checkDown(this.keyObj, 0) &&
+      this.canpickup == true
+    ) {
+      this.bait.destroy(true);
+      this.baitCounter++;
+      this.canpickup = false;
+    }
   }
 
   eatBait() {
@@ -283,13 +278,9 @@ export class OpeningScene extends Phaser.Scene {
   }
 
   update() {
-    // if (this.input.keyboard.checkDown(this.keyObj, 500)) {
-    //   console.log("jemoeder")
-    //   this.placeBait();
-    // }
-
-    this.keyObj.on('down', (event) => { this.placeBait() });
-
+    if (this.input.keyboard.checkDown(this.keyObj, 500)) {
+      this.placeBait();
+    }
 
     this.enemy.update()
     this.player.update()

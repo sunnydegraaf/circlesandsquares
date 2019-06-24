@@ -21,9 +21,6 @@ export class TestScene extends Phaser.Scene {
     private bait: bait
     private canpickup: boolean;
 
-
-
-
     constructor() {
         super({
             key: CST.SCENES.TEST
@@ -203,8 +200,8 @@ export class TestScene extends Phaser.Scene {
 
     update() {
         if (this.input.keyboard.checkDown(this.keyObj, 500)) {
-            this.placeBait()
-        }
+            this.placeBait();
+          }
 
         this.enemy.update()
         this.player.update()
