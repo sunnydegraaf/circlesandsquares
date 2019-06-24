@@ -13,7 +13,7 @@ export class enemy extends Phaser.Physics.Arcade.Sprite {
     this.addAnimations();
     this.play("walkenemy", true);
     this.setVelocityY(-100);
-    this.body.setSize(25,20)
+    this.body.setSize(20,20)
     this.setScale(1.2)
     this.flipX = true;
     this.walking_distance = Phaser.Math.Between(98, 255);

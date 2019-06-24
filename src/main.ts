@@ -12,6 +12,7 @@ import { TestScene } from "./scenes/TestScene";
 const config: Phaser.Types.Core.GameConfig = {
   width: 640,
   height: 480,
+  // @ts-ignore for the weird bug
   scene: [LoadScene, MenuScene, OpeningScene, PlayScene, GameOverScene, TestScene],
   render: {
     pixelArt: true
@@ -19,7 +20,7 @@ const config: Phaser.Types.Core.GameConfig = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: true
+      debug: false
     }
   },
   input: {

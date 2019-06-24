@@ -80,7 +80,7 @@ export class PlayScene extends Phaser.Scene {
         this.physics.add.collider(this.playerPush, this.top);
 
 
-        this.physics.add.collider(this.player, this.blockGroup);
+        this.physics.add.collider(this.player, this.blockGroup, this.getSuffocated, null, this);
         this.physics.add.overlap(this.player, this.enemyGroup, this.gameOver, null, this);
 
         this.physics.add.collider(this.playerPush, this.blockGroup, this.bounceWall, null, this)
@@ -106,7 +106,6 @@ export class PlayScene extends Phaser.Scene {
     }
 
     placeBait() {
-        console.log("bait")
         setTimeout(() => {
             this.canpickup = true
         }, 1000);
@@ -132,15 +131,14 @@ export class PlayScene extends Phaser.Scene {
         this.bait.destroy()
 
         setTimeout(() => {
-            console.log("hoevaakdanbro")
-            e.collideWall()
+                e.collideWall()
             this.canpickup = false
             this.baitCounter++
         }, 3000);
     }
 
-    bounceWall(p: characterBait, b: pushBlock): void {
-        //move block when pushed
+    bounceWall(p: characterPush | characterUlt, b: pushBlock): void {
+             //move block when pushed
         if (b.body.touching.left && this.Keyboard.F.isDown) {
             b.setVelocityX(175)
         } else if (b.body.touching.right && this.Keyboard.F.isDown) {
@@ -149,7 +147,7 @@ export class PlayScene extends Phaser.Scene {
             b.setVelocityY(175)
         } else if (b.body.touching.down && this.Keyboard.F.isDown) {
             b.setVelocityY(-175)
-        }
+        }  
     }
 
     collidewall(e: enemy) {
@@ -158,9 +156,26 @@ export class PlayScene extends Phaser.Scene {
         }, 500);
     }
 
-    gameOver() {
-        this.scene.start("gameover");
+    getSuffocated(p: characterUlt, b: pushBlock){
+        if(b.body.velocity.x !== 0 || b.body.velocity.y !== 0){
+            p.setVelocity(500)
+            this.gameOver(p)
+        }
     }
+
+    gameOver(b: characterPush | characterUlt) {
+        //play dead animation
+        if (b instanceof characterPush) {
+          this.playerPush.die()
+        }
+        if (b instanceof characterUlt) {
+          this.player.die()
+        }
+    
+        setTimeout(() => {
+          this.scene.start("gameover");
+        }, 1250);
+      }
 
     enemyDie(e: enemy, b: pushBlock) {
         if (b.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
@@ -218,10 +233,9 @@ export class PlayScene extends Phaser.Scene {
     }
 
     update() {
-        if (this.input.keyboard.checkDown(this.keyObj, 1000)) {
-            console.log("press b")
-            this.placeBait()
-        }
+        if (this.input.keyboard.checkDown(this.keyObj, 500)) {
+            this.placeBait();
+          }
         this.player.update()
         this.playerPush.update()
 
