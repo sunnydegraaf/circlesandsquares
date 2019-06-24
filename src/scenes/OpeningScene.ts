@@ -37,10 +37,10 @@ export class OpeningScene extends Phaser.Scene {
     };
 
     this.text = [
+      "Leg met B aas neer",
       "Raak de enemy met het blok",
       "Blokken stoppen als ze een enemy raken",
       "Loop naar de uitgang",
-      "Kunnen loopen"
     ];
 
     this.i = 0;
@@ -101,7 +101,7 @@ export class OpeningScene extends Phaser.Scene {
     this.baitGroup = this.add.group({ runChildUpdate: true });
 
     // players
-    this.player = new characterUlt(this, 150, 130);
+    this.player = new characterUlt(this, 550, 130);
     this.playerPush = new characterPush(this, 100, 200)
 
 
@@ -177,6 +177,7 @@ export class OpeningScene extends Phaser.Scene {
   eatBait() {
     this.enemy.setVelocity(0);
     this.bait.destroy();
+    this.blockText();
 
     setTimeout(() => {
       this.enemy.collideWall();
@@ -189,7 +190,10 @@ export class OpeningScene extends Phaser.Scene {
     //move block when pushed
     if (b.body.touching.left && this.Keyboard.F.isDown) {
       b.setVelocityX(175);
-      this.blockText();
+      this.baitText();
+      if (this.counter == 3) {
+        this.exitText();
+      }
     } else if (b.body.touching.right && this.Keyboard.F.isDown) {
       b.setVelocityX(-175);
     } else if (b.body.touching.up && this.Keyboard.F.isDown) {
@@ -270,6 +274,24 @@ export class OpeningScene extends Phaser.Scene {
 
   //text display when player collides with block
   blockText() {
+    if (this.counter == 1) {
+      this.makeRectangle();
+      this.displayText((this.i = 1));
+      this.counter++;
+    }
+  }
+
+  //text display when block collides with enemy
+  enemyText() {
+    if (this.counter == 2) {
+      this.makeRectangle();
+      this.displayText((this.i = 2));
+      this.counter++;
+    }
+  }
+
+//text display when bait collides with enemy
+  baitText() {
     if (this.counter == 0) {
       this.makeRectangle();
       this.displayText((this.i = 0));
@@ -277,14 +299,14 @@ export class OpeningScene extends Phaser.Scene {
     }
   }
 
-  //text display when block collides with enemy
-  enemyText() {
-    if (this.counter == 1) {
-      this.makeRectangle();
-      this.displayText((this.i = 1));
-      this.counter++;
-    }
+//text display when players need to go to the exit
+exitText() {
+  if (this.counter == 3) {
+    this.makeRectangle();
+    this.displayText((this.i = 3));
+    this.counter++;
   }
+} 
 
   update() {
     if (this.input.keyboard.checkDown(this.keyObj, 500)) {
