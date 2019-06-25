@@ -23,6 +23,7 @@ export class PlayScene extends Phaser.Scene {
     private wall: Phaser.Tilemaps.DynamicTilemapLayer
     private ground: Phaser.Tilemaps.DynamicTilemapLayer
     private mappy: Phaser.Tilemaps.Tilemap
+    private vulnerable: boolean;
 
 
     constructor() {
@@ -32,7 +33,7 @@ export class PlayScene extends Phaser.Scene {
         document.addEventListener("joystick1button1", () => this.placeBait())
         this.baitCounter = 1;
         this.canpickup = false
-
+        this.vulnerable = false
     }
 
     create(): void {
@@ -126,11 +127,12 @@ export class PlayScene extends Phaser.Scene {
     }
 
     eatBait(b: bait, e: enemy) {
-
+        this.vulnerable = true
         e.setVelocity(0)
         this.bait.destroy()
 
         setTimeout(() => {
+            this.vulnerable = false
                 e.collideWall()
             this.canpickup = false
             this.baitCounter++
@@ -177,35 +179,40 @@ export class PlayScene extends Phaser.Scene {
         }, 1250);
       }
 
-    enemyDie(e: enemy, b: pushBlock) {
-        if (b.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
-            e.destroy()
-
-            var particles = this.add.particles('blood');
-
-            this.emitter = particles.createEmitter({
-                lifespan: 300,
-                speed: 75,
-                scale: { start: 0.1, end: 0.05 },
-                x: e.x,
-                y: e.y + 20
-            });
-
-            setTimeout(() => {
-                this.emitter.stop()
-            }, 300);
-
-
-            // slow block down
-            setTimeout(() => {
-                b.setVelocity(0);
-            }, 150);
-        } else {
-            this.collidewall(e)
+      enemyDie(e: enemy, b: pushBlock) {
+        if (this.vulnerable === true) {
+        if(b.body.velocity.x !== 0 || b.body.velocity.y !== 0){
+          e.destroy();
+          console.log("enemygaatdood")    
+          var particles = this.add.particles("blood");
+    
+          this.emitter = particles.createEmitter({
+            lifespan: 300,
+            speed: 75,
+            scale: { start: 0.1, end: 0.05 },
+            x: e.x,
+            y: e.y + 20
+          });
+    
+          setTimeout(() => {
+            this.emitter.stop();
+          }, 300);
+    
+          // slow block down
+          setTimeout(() => {
+            b.setVelocity(0);
+          }, 150);
         }
-
-
-    }
+          
+        } else {
+          console.log("niet dood")
+          b.setVelocity(0)            
+          e.setVelocity(0)
+          setTimeout(() => {
+            this.collidewall(e)
+          }, 500);
+          }
+      }
 
     blockDestroy(s: pushBlock, b: pushBlock) {
         if (s.body.velocity.x !== 0 || b.body.velocity.y !== 0) {

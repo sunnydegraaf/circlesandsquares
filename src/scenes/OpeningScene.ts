@@ -24,6 +24,8 @@ export class OpeningScene extends Phaser.Scene {
   private counter: number;
   private testPlayer: characterBait;
   keyObj: Phaser.Input.Keyboard.Key;
+  private vulnerable: boolean;
+  private collideExit: boolean;
 
   constructor() {
     super({
@@ -33,7 +35,7 @@ export class OpeningScene extends Phaser.Scene {
     this.style = {
       fontFamily: "Arial",
       fontSize: 12,
-      color: "#E1E1D4"
+      color: "#000"
     };
 
     this.text = [
@@ -44,8 +46,10 @@ export class OpeningScene extends Phaser.Scene {
     ];
 
     this.i = 0;
-
+    this.vulnerable = false
     this.counter = 0;
+
+    this.collideExit = false;
 
     document.addEventListener("joystick1button1", () => this.placeBait());
     this.baitCounter = 1;
@@ -55,14 +59,14 @@ export class OpeningScene extends Phaser.Scene {
 
     //textbox
     this.add
-      .rectangle(320, 428, 250, 30, 0x549393)
+      .rectangle(320, 428, 250, 30, 0xf3f00d)
       .setDepth(5)
       .setOrigin(0.5);
     this.add
       .text(320, 428, "Klik op F om een blok te verschuiven", {
         fontFamily: "Arial",
         fontSize: 12,
-        color: "#E1E1D4"
+        color: "#000"
       })
       .setOrigin(0.5)
       .setDepth(5);
@@ -117,6 +121,7 @@ export class OpeningScene extends Phaser.Scene {
     this.physics.add.collider(this.playerPush, ground);
     this.physics.add.collider(this.playerPush, wall);
     this.physics.add.collider(this.playerPush, top);
+    this.physics.add.collider(this.playerPush, exit, this.PlayerPushExit, null, this);
 
     this.physics.add.collider(this.player, this.blockGroup, this.getSuffocated, null, this);
     this.physics.add.overlap(this.player, this.enemy, this.gameOver, null, this);
@@ -146,8 +151,13 @@ export class OpeningScene extends Phaser.Scene {
 
   }
 
+  PlayerPushExit() {
+    this.collideExit = true;
+  }
+
   toPlayScene() {
-    // this.camera.fade(0x0 00000, 1000);
+    // this.camera.fade(0x0 00000, 1000); 
+    if (this.collideExit === true) 
     this.scene.start(CST.SCENES.PLAY);
   }
 
@@ -175,6 +185,7 @@ export class OpeningScene extends Phaser.Scene {
   }
 
   eatBait() {
+    this.vulnerable = true
     this.enemy.setVelocity(0);
     this.bait.destroy();
     this.blockText();
@@ -229,9 +240,10 @@ export class OpeningScene extends Phaser.Scene {
   }
 
   enemyDie(e: enemy, b: pushBlock) {
-    if (b.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
+    if (this.vulnerable === true) {
+    if(b.body.velocity.x !== 0 || b.body.velocity.y !== 0){
       e.destroy();
-
+      console.log("enemygaatdood")
       this.enemyText();
 
       var particles = this.add.particles("blood");
@@ -252,9 +264,16 @@ export class OpeningScene extends Phaser.Scene {
       setTimeout(() => {
         b.setVelocity(0);
       }, 150);
-    } else {
-      this.collidewall(e);
     }
+      
+    } else {
+      console.log("niet dood")
+      b.setVelocity(0)
+      e.setVelocity(0)
+      setTimeout(() => {
+        this.collidewall(e)
+      }, 500);
+      }
   }
 
   //loop through array
@@ -267,7 +286,7 @@ export class OpeningScene extends Phaser.Scene {
 
   makeRectangle() {
     this.add
-      .rectangle(320, 428, 250, 30, 0x549393)
+      .rectangle(320, 428, 250, 30, 0xf3f00d)
       .setDepth(5)
       .setOrigin(0.5);
   }
@@ -312,6 +331,7 @@ exitText() {
     if (this.input.keyboard.checkDown(this.keyObj, 500)) {
       this.placeBait();
     }
+
 
     this.enemy.update()
     this.player.update()
