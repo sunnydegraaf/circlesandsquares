@@ -59,12 +59,15 @@ export class LoadScene extends Phaser.Scene {
     });
   }
 
+
   preload() {
     this.loadImages();
-
     //load map
     this.load.image("Dungeon", require("../assets/image/tileset_dungeon2.png"));
     this.load.tilemapTiledJSON("mappy", require("../assets/maps/level1.json"));
+
+    // level 1
+    this.load.tilemapTiledJSON("play1", require("../assets/maps/play1.json"));
 
     //opening map
     this.load.tilemapTiledJSON("openingScene", require("../assets/maps/test.json"));

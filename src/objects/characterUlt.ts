@@ -90,27 +90,30 @@ export class characterUlt extends Phaser.Physics.Arcade.Sprite {
     }
 
     if (this.arcade.Joysticks[1]) {
-      this.play("walk", true);
       this.setVelocityX(this.arcade.Joysticks[1].X * 100);
       this.setVelocityY(this.arcade.Joysticks[1].Y * 100);
 
       if (this.arcade.Joysticks[1].X == 1) {
+        
+        this.play("walk", true );
+        console.log("lopen")
         this.flipX = false;
       }
 
       if (this.arcade.Joysticks[1].X == -1) {
+        this.play("walk");
         this.flipX = true;
       }
 
       if (this.arcade.Joysticks[1].X == 0 && this.arcade.Joysticks[1].Y == 0) {
-        this.play("walk", false);
+        
       }
     }
   }
 
   die() {
     this.died = true
-    this.play("die", true);
+    this.play("die");
     setTimeout(() => {
       this.setVisible(false)
     }, 500);
@@ -134,6 +137,7 @@ export class characterUlt extends Phaser.Physics.Arcade.Sprite {
       this.setVelocityY(-100);
       this.play("walk", true);
       this.flipX = false;
+      console.log("lopen")
     }
 
     if (this.keyboard.S.isDown) {

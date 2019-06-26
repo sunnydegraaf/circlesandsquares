@@ -85,27 +85,27 @@ export class characterPush extends Phaser.Physics.Arcade.Sprite {
     }
 
     private joystickInput(): void {
-        for (let joystick of this.arcade.Joysticks) {
-            joystick.update();
-        }
+        // for (let joystick of this.arcade.Joysticks) {
+        //     joystick.update();
+        // }
 
-        if (this.arcade.Joysticks[1]) {
-            this.play("walkbig", true);
-            this.setVelocityX(this.arcade.Joysticks[1].X * 100);
-            this.setVelocityY(this.arcade.Joysticks[1].Y * 100);
+        // if (this.arcade.Joysticks[1]) {
+        //     this.play("walkbig", true);
+        //     this.setVelocityX(this.arcade.Joysticks[1].X * 100);
+        //     this.setVelocityY(this.arcade.Joysticks[1].Y * 100);
 
-            if (this.arcade.Joysticks[1].X == 1) {
-                this.flipX = false;
-            }
+        //     if (this.arcade.Joysticks[1].X == 1) {
+        //         this.flipX = false;
+        //     }
 
-            if (this.arcade.Joysticks[1].X == -1) {
-                this.flipX = true;
-            }
+        //     if (this.arcade.Joysticks[1].X == -1) {
+        //         this.flipX = true;
+        //     }
 
-            if (this.arcade.Joysticks[1].X == 0 && this.arcade.Joysticks[1].Y == 0) {
-                this.play("walkbig", false);
-            }
-        }
+        //     if (this.arcade.Joysticks[1].X == 0 && this.arcade.Joysticks[1].Y == 0) {
+        //         this.play("walkbig", false);
+        //     }
+        // }
     }
 
     private addParticles() {

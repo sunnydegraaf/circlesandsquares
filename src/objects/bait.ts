@@ -12,6 +12,7 @@ export class bait extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this)
         this.setDepth(5);
         this.addPhysics()
+        this.setDepth(0)
     }
 
     private addPhysics() {
