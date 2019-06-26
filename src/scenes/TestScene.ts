@@ -16,8 +16,6 @@ export class TestScene extends Phaser.Scene {
     private keyObj: Phaser.Input.Keyboard.Key
     private keySpace: Phaser.Input.Keyboard.Key
     private Keyboard: any
-    private i: number
-    private text: [string, string, string, string];
     private bait: bait
     private canpickup: boolean;
 
@@ -26,25 +24,15 @@ export class TestScene extends Phaser.Scene {
             key: CST.SCENES.TEST
         });
 
-        this.text = ['Raak de enemy met het blok', 'Blokken stoppen als ze een enemy raken', 'Loop naar de uitgang', 'Kunnen loopen']
-
-        this.i = 0
-
         document.addEventListener("joystick1button1", () => this.placeBait())
         this.baitCounter = 1;
         this.canpickup = false
     }
 
     create() {
-        this.add.rectangle(320, 450, 250, 30, 0xffffff).setDepth(5).setOrigin(0.5)
-        this.add.text(320, 450, 'Klik op F om een blok te verschuiven', {
-            fontFamily: 'Arial',
-            fontSize: 12,
-            color: '#ff3434',
-        }).setOrigin(0.5).setDepth(5)
-
+      
         //map
-        let openingMap = this.add.tilemap("openingScene");
+        let openingMap = this.add.tilemap("play1");
         let terrain = openingMap.addTilesetImage("tilesetDungeon", "Dungeon");
 
         //layers
@@ -54,7 +42,7 @@ export class TestScene extends Phaser.Scene {
 
         // pushable blocks
         let pushableBlocks = [];
-        pushableBlocks = openingMap.createFromObjects("pushBlocks", 52, { key: "pushBlocks" })
+        pushableBlocks = openingMap.createFromObjects("pushBlocks", 65, { key: "pushBlocks" })
 
         this.blockGroup = this.physics.add.group({ runChildUpdate: true })
 

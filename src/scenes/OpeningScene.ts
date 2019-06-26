@@ -46,7 +46,7 @@ export class OpeningScene extends Phaser.Scene {
     this.i = 0;
 
     this.counter = 0;
-
+    
     document.addEventListener("joystick1button1", () => this.placeBait());
     this.baitCounter = 1;
   }

@@ -12,12 +12,11 @@ export class MenuScene extends Phaser.Scene {
       key: CST.SCENES.MENU
     });
   }
-  init() { }
+    
   create() {
+
     let g = this.game as MonsterHunter;
     this.arcade = g.arcade;
-
-    document.addEventListener("joystick1button0", () => this.nextGame());
 
     let background = this.add
       .image(0, 0, "background")

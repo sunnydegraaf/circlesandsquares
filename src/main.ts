@@ -10,6 +10,7 @@ import { TestScene } from "./scenes/TestScene";
 
 
 const config: Phaser.Types.Core.GameConfig = {
+  type: Phaser.AUTO,
   width: 640,
   height: 480,
   // @ts-ignore for the weird bug
@@ -29,6 +30,8 @@ const config: Phaser.Types.Core.GameConfig = {
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH
+  },
+  audio: {
   }
 }
 

@@ -32,15 +32,23 @@ export class PlayScene extends Phaser.Scene {
         super({
             key: CST.SCENES.PLAY
         });
-        document.addEventListener("joystick1button1", () => this.placeBait())
         this.baitCounter = 1;
         this.canpickup = false
+
+        document.addEventListener("joystick1button1", () => {
+            this.placeBait()
+            this.pickupBaitJoy()
+        })
+
     }
 
     create(): void {
+
+      
+
         //map
-        this.mappy = this.add.tilemap("mappy");
-        let terrain = this.mappy.addTilesetImage("dungeonTileset", "Dungeon");
+        this.mappy = this.add.tilemap("play1");
+        let terrain = this.mappy.addTilesetImage("tilesetDungeon", "Dungeon");
 
         //layers
         this.ground = this.mappy.createDynamicLayer("ground", [terrain], 0, 0).setDepth(0);
@@ -75,8 +83,8 @@ export class PlayScene extends Phaser.Scene {
         this.enemyGroup.setVelocityX(100)
 
         // players
-        this.player = new characterUlt(this, 150, 130);
-        this.playerPush = new characterPush(this, 100, 200)
+        this.player = new characterUlt(this, 50, 75);
+        this.playerPush = new characterPush(this, 50, 100)
 
         //map collisions
         this.physics.add.collider(this.player, this.ground);
@@ -131,6 +139,15 @@ export class PlayScene extends Phaser.Scene {
             this.baitCounter++
             this.canpickup = false
         }
+    }
+
+    pickupBaitJoy(){
+        if(this.physics.collide(this.player, this.bait) && this.canpickup == true){
+            this.bait.destroy(true)
+            this.baitCounter++
+            this.canpickup = false
+        }
+        console.log("kek")
     }
 
     eatBait(b: bait, e: enemy) {
@@ -253,7 +270,7 @@ export class PlayScene extends Phaser.Scene {
         }, 1000);
 
         if (this.timer.time == 0) {
-            this.gameOver()
+            this.gameOver(this.player)
         } 
 
     }
