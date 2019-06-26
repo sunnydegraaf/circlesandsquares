@@ -6,6 +6,7 @@ import { bait } from "../objects/bait";
 import { characterUlt } from "../objects/characterUlt";
 import { characterPush } from "../objects/characterPush";
 import { Timer } from "../objects/Countdown"
+import { runInThisContext } from "vm";
 
 export class PlayScene extends Phaser.Scene {
     private player: characterUlt;
@@ -29,6 +30,7 @@ export class PlayScene extends Phaser.Scene {
     private timertext: Phaser.GameObjects.Text;
     private vulnerable: boolean
     private canPush: boolean;
+    style: object
 
     constructor() {
         super({
@@ -36,6 +38,11 @@ export class PlayScene extends Phaser.Scene {
         });
         this.baitCounter = 1;
         this.canpickup = false
+
+        this.style = {
+            fontSize: "16px",
+            color: "#f3f00d"
+        }
 
         document.addEventListener("joystick1button1", () => {
             this.placeBait()
@@ -59,9 +66,8 @@ export class PlayScene extends Phaser.Scene {
 
         //timer
         this.timer = new Timer()
-        this.timer.time = 180
-        this.timertext = this.add.text(15, 455, this.timer.time.toString()).setDepth(10);;
-
+        this.timer.time = 120
+        this.timertext = this.add.text(15, 435, "Time left: " + this.timer.time.toString(), this.style).setDepth(10);
 
         // pushable blocks
         let pushableBlocks = [];
@@ -300,8 +306,8 @@ export class PlayScene extends Phaser.Scene {
         this.player.update()
         this.playerPush.update()
         setInterval(() => {
-
-            this.timertext.setText(this.timer.time.toString())
+            this.timertext.setText("Time left: " + this.timer.time.toString())
+            
         }, 1000);
 
         if (this.timer.time == 0) {
