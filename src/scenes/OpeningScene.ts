@@ -42,7 +42,7 @@ export class OpeningScene extends Phaser.Scene {
 
     this.text = [
       "Leg met B aas neer",
-      "Raak de enemy met het blok",
+      "De enemy is nu verzwakt, raak hem met het blok",
       "Blokken stoppen als ze een enemy raken",
       "Loop naar de uitgang",
     ];
@@ -65,7 +65,7 @@ export class OpeningScene extends Phaser.Scene {
 
     //textbox
     this.add
-      .rectangle(320, 428, 250, 30, 0xf3f00d)
+      .rectangle(320, 428, 300, 30, 0xf3f00d)
       .setDepth(5)
       .setOrigin(0.5);
     this.add
@@ -208,7 +208,7 @@ export class OpeningScene extends Phaser.Scene {
       if (b.body.touching.left && this.Keyboard.F.isDown) {
         b.setVelocityX(175);
         this.baitText();
-        if (this.counter == 3) {
+        if (this.counter === 3) {
           this.exitText();
         }
       } else if (b.body.touching.right && this.Keyboard.F.isDown) {
@@ -253,6 +253,10 @@ export class OpeningScene extends Phaser.Scene {
       if (b.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
         e.destroy();
         var particles = this.add.particles("blood");
+
+        if (this.counter === 2) {
+          this.enemyText();
+        }
 
         this.emitter = particles.createEmitter({
           lifespan: 300,
@@ -305,7 +309,7 @@ export class OpeningScene extends Phaser.Scene {
 
   makeRectangle() {
     this.add
-      .rectangle(320, 428, 250, 30, 0xf3f00d)
+      .rectangle(320, 428, 300, 30, 0xf3f00d)
       .setDepth(5)
       .setOrigin(0.5);
   }

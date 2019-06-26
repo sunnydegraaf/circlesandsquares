@@ -174,19 +174,16 @@ export class PlayScene extends Phaser.Scene {
         }, 3000);
     }
 
-    bounceWall(p: characterPush | characterUlt, b: pushBlock): void {
-
-        
-        //move block when pushed
-        if (this.canPush = true) {
+    bounceWall(p: characterPush, b: pushBlock): void {
+        if (this.canPush == true) {
             if (b.body.touching.left && this.Keyboard.F.isDown) {
-                b.setVelocityX(175)
+                b.setVelocityX(175);
             } else if (b.body.touching.right && this.Keyboard.F.isDown) {
-                b.setVelocityX(-175)
+                b.setVelocityX(-175);
             } else if (b.body.touching.up && this.Keyboard.F.isDown) {
-                b.setVelocityY(175)
+                b.setVelocityY(175);
             } else if (b.body.touching.down && this.Keyboard.F.isDown) {
-                b.setVelocityY(-175)
+                b.setVelocityY(-175);
             }
         }
 
@@ -311,7 +308,7 @@ export class PlayScene extends Phaser.Scene {
             this.gameOver(this.player)
         }
 
-        
+
 
     }
 }
