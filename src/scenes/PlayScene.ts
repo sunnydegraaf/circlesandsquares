@@ -5,6 +5,7 @@ import { enemy } from "../objects/enemy";
 import { bait } from "../objects/bait";
 import { characterUlt } from "../objects/characterUlt";
 import { characterPush } from "../objects/characterPush";
+import { Timer } from "../objects/Countdown"
 
 export class PlayScene extends Phaser.Scene {
     private player: characterUlt;
@@ -23,6 +24,8 @@ export class PlayScene extends Phaser.Scene {
     private wall: Phaser.Tilemaps.DynamicTilemapLayer
     private ground: Phaser.Tilemaps.DynamicTilemapLayer
     private mappy: Phaser.Tilemaps.Tilemap
+    private timer: Timer;
+    private timertext: Phaser.GameObjects.Text;
 
 
     constructor() {
@@ -32,7 +35,6 @@ export class PlayScene extends Phaser.Scene {
         document.addEventListener("joystick1button1", () => this.placeBait())
         this.baitCounter = 1;
         this.canpickup = false
-
     }
 
     create(): void {
@@ -44,6 +46,12 @@ export class PlayScene extends Phaser.Scene {
         this.ground = this.mappy.createDynamicLayer("ground", [terrain], 0, 0).setDepth(0);
         this.wall = this.mappy.createDynamicLayer("wall", [terrain], 0, 0).setDepth(2);
         this.top = this.mappy.createDynamicLayer("top", [terrain], 0, 0).setDepth(1);
+
+        //timer
+        this.timer = new Timer()
+        this.timer.time = 180
+        this.timertext = this.add.text(15, 455, this.timer.time.toString()).setDepth(10);;
+        
 
         // pushable blocks
         let pushableBlocks = [];
@@ -151,6 +159,7 @@ export class PlayScene extends Phaser.Scene {
     }
 
     collidewall(e: enemy) {
+
         setTimeout(() => {
             e.collideWall()
         }, 500);
@@ -238,6 +247,14 @@ export class PlayScene extends Phaser.Scene {
           }
         this.player.update()
         this.playerPush.update()
+        setInterval(() => {
+            
+            this.timertext.setText(this.timer.time.toString())
+        }, 1000);
+
+        if (this.timer.time == 0) {
+            this.gameOver()
+        } 
 
     }
 }
