@@ -24,7 +24,6 @@ export class OpeningScene extends Phaser.Scene {
   private counter: number;
   private testPlayer: characterBait;
   keyObj: Phaser.Input.Keyboard.Key;
-  private vulnerable: boolean;
   private collideExit: boolean;
 
   constructor() {
@@ -46,7 +45,6 @@ export class OpeningScene extends Phaser.Scene {
     ];
 
     this.i = 0;
-    this.vulnerable = false
     this.counter = 0;
 
     this.collideExit = false;
@@ -185,7 +183,6 @@ export class OpeningScene extends Phaser.Scene {
   }
 
   eatBait() {
-    this.vulnerable = true
     this.enemy.setVelocity(0);
     this.bait.destroy();
     this.blockText();
@@ -240,12 +237,9 @@ export class OpeningScene extends Phaser.Scene {
   }
 
   enemyDie(e: enemy, b: pushBlock) {
-    if (this.vulnerable === true) {
     if(b.body.velocity.x !== 0 || b.body.velocity.y !== 0){
       e.destroy();
-      console.log("enemygaatdood")
-      this.enemyText();
-
+      console.log("enemygaatdood")    
       var particles = this.add.particles("blood");
 
       this.emitter = particles.createEmitter({
@@ -264,11 +258,9 @@ export class OpeningScene extends Phaser.Scene {
       setTimeout(() => {
         b.setVelocity(0);
       }, 150);
-    }
-      
     } else {
       console.log("niet dood")
-      b.setVelocity(0)
+      b.setVelocity(0)            
       e.setVelocity(0)
       setTimeout(() => {
         this.collidewall(e)

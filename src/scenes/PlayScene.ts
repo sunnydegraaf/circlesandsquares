@@ -23,7 +23,6 @@ export class PlayScene extends Phaser.Scene {
     private wall: Phaser.Tilemaps.DynamicTilemapLayer
     private ground: Phaser.Tilemaps.DynamicTilemapLayer
     private mappy: Phaser.Tilemaps.Tilemap
-    private vulnerable: boolean;
 
 
     constructor() {
@@ -33,7 +32,6 @@ export class PlayScene extends Phaser.Scene {
         document.addEventListener("joystick1button1", () => this.placeBait())
         this.baitCounter = 1;
         this.canpickup = false
-        this.vulnerable = false
     }
 
     create(): void {
@@ -127,12 +125,10 @@ export class PlayScene extends Phaser.Scene {
     }
 
     eatBait(b: bait, e: enemy) {
-        this.vulnerable = true
         e.setVelocity(0)
         this.bait.destroy()
 
         setTimeout(() => {
-            this.vulnerable = false
                 e.collideWall()
             this.canpickup = false
             this.baitCounter++
@@ -180,7 +176,6 @@ export class PlayScene extends Phaser.Scene {
       }
 
       enemyDie(e: enemy, b: pushBlock) {
-        if (this.vulnerable === true) {
         if(b.body.velocity.x !== 0 || b.body.velocity.y !== 0){
           e.destroy();
           console.log("enemygaatdood")    
@@ -202,8 +197,6 @@ export class PlayScene extends Phaser.Scene {
           setTimeout(() => {
             b.setVelocity(0);
           }, 150);
-        }
-          
         } else {
           console.log("niet dood")
           b.setVelocity(0)            
