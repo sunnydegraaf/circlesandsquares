@@ -24,7 +24,6 @@ export class OpeningScene extends Phaser.Scene {
   private counter: number;
   private testPlayer: characterBait;
   keyObj: Phaser.Input.Keyboard.Key;
-  private vulnerable: boolean;
   private collideExit: boolean;
 
   constructor() {
@@ -46,7 +45,6 @@ export class OpeningScene extends Phaser.Scene {
     ];
 
     this.i = 0;
-    this.vulnerable = false
     this.counter = 0;
 
     this.collideExit = false;
@@ -185,7 +183,6 @@ export class OpeningScene extends Phaser.Scene {
   }
 
   eatBait() {
-    this.vulnerable = true
     this.enemy.setVelocity(0);
     this.bait.destroy();
     this.blockText();
@@ -240,7 +237,6 @@ export class OpeningScene extends Phaser.Scene {
   }
 
   enemyDie(e: enemy, b: pushBlock) {
-    if (this.vulnerable === true) {
     if(b.body.velocity.x !== 0 || b.body.velocity.y !== 0){
       e.destroy();
       console.log("enemygaatdood")
@@ -264,7 +260,7 @@ export class OpeningScene extends Phaser.Scene {
       setTimeout(() => {
         b.setVelocity(0);
       }, 150);
-    }
+    // }
       
     } else {
       console.log("niet dood")
