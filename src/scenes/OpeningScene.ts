@@ -41,10 +41,10 @@ export class OpeningScene extends Phaser.Scene {
     };
 
     this.text = [
-      "Leg met B aas neer",
-      "De enemy is nu verzwakt, raak hem met het blok",
+      "Leg met B aas neer op de plek waar je de enemy wilt laten stoppen",
+      "De enemy is nu even verzwakt, raak hem met het blok als hij verzwakt is !",
       "Blokken stoppen als ze een enemy raken",
-      "Loop naar de uitgang",
+      "Loop nu samen naar de uitgang",
     ];
 
     this.i = 0;
@@ -52,7 +52,10 @@ export class OpeningScene extends Phaser.Scene {
 
     this.collideExit = false;
 
-    document.addEventListener("joystick1button1", () => this.placeBait());
+    document.addEventListener("joystick1button1", () => {
+      this.placeBait()
+      this.pickupBaitJoy()
+  })
     this.baitCounter = 1;
 
     localStorage.setItem('prevScene', 'opening')
@@ -190,6 +193,14 @@ export class OpeningScene extends Phaser.Scene {
     }
   }
 
+  pickupBaitJoy() {
+    if (this.physics.collide(this.player, this.bait) && this.canpickup == true) {
+        this.bait.destroy(true)
+        this.baitCounter++
+        this.canpickup = false
+    }
+}
+
   eatBait() {
     this.enemy.setVelocity(0);
     this.bait.destroy();
@@ -309,7 +320,7 @@ export class OpeningScene extends Phaser.Scene {
 
   makeRectangle() {
     this.add
-      .rectangle(320, 428, 300, 30, 0xf3f00d)
+      .rectangle(320, 428, 400, 30, 0xf3f00d)
       .setDepth(5)
       .setOrigin(0.5);
   }

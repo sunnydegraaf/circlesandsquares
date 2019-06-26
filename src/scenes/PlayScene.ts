@@ -6,7 +6,6 @@ import { bait } from "../objects/bait";
 import { characterUlt } from "../objects/characterUlt";
 import { characterPush } from "../objects/characterPush";
 import { Timer } from "../objects/Countdown"
-import { runInThisContext } from "vm";
 
 export class PlayScene extends Phaser.Scene {
     private player: characterUlt;
@@ -50,7 +49,7 @@ export class PlayScene extends Phaser.Scene {
         })
 
         this.vulnerable = false
-        localStorage.setItem('prevScene', 'opening')
+        localStorage.setItem('prevScene', 'play')
         this.canPush = true
     }
 
@@ -158,7 +157,6 @@ export class PlayScene extends Phaser.Scene {
             this.baitCounter++
             this.canpickup = false
         }
-        console.log("kek")
     }
 
     eatBait(b: bait, e: enemy) {
@@ -315,6 +313,6 @@ export class PlayScene extends Phaser.Scene {
         }
 
         this.completeLevel()
-
+        console.log(localStorage.getItem('prevScene'))
     }
 }
