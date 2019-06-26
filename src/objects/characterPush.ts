@@ -90,20 +90,20 @@ export class characterPush extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (this.arcade.Joysticks[2]) {
-            this.play("walkbig", true);
             this.setVelocityX(this.arcade.Joysticks[2].X * 100);
             this.setVelocityY(this.arcade.Joysticks[2].Y * 100);
 
             if (this.arcade.Joysticks[2].X == 1) {
+                this.play("walkbig", false);
                 this.flipX = false;
             }
 
             if (this.arcade.Joysticks[2].X == -1) {
+                this.play("walkbig", false);
                 this.flipX = true;
             }
 
             if (this.arcade.Joysticks[2].X == 0 && this.arcade.Joysticks[2].Y == 0) {
-                this.play("walkbig", false);
             }
         }
     }

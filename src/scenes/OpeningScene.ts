@@ -27,6 +27,7 @@ export class OpeningScene extends Phaser.Scene {
   private collideExit: boolean;
   private vulnerable: boolean
   canPush: boolean;
+  
 
   constructor() {
     super({
@@ -57,6 +58,7 @@ export class OpeningScene extends Phaser.Scene {
     localStorage.setItem('prevScene', 'opening')
     this.vulnerable = false
     this.canPush = true
+
   }
 
   create() {

@@ -48,7 +48,6 @@ export class PlayScene extends Phaser.Scene {
     }
 
     create(): void {
-
         //map
         this.mappy = this.add.tilemap("play1");
         let terrain = this.mappy.addTilesetImage("tilesetDungeon", "Dungeon");
@@ -170,6 +169,8 @@ export class PlayScene extends Phaser.Scene {
     }
 
     bounceWall(p: characterPush | characterUlt, b: pushBlock): void {
+
+        
         //move block when pushed
         if (this.canPush = true) {
             if (b.body.touching.left && this.Keyboard.F.isDown) {

@@ -15,6 +15,8 @@ export class MenuScene extends Phaser.Scene {
     
   create() {
 
+    let music = this.sound.add('theme')
+
     let g = this.game as MonsterHunter;
     this.arcade = g.arcade;
 
@@ -81,10 +83,11 @@ export class MenuScene extends Phaser.Scene {
     optionsButton.on("pointerout", () => {
       optionsButton.setScale(1);
       this.tweens.remove(this.optionsTween);
+      
     });
 
     optionsButton.on("pointerup", () => {
-      //options
+          music.play()
     });
   }
 

@@ -96,7 +96,6 @@ export class characterUlt extends Phaser.Physics.Arcade.Sprite {
       if (this.arcade.Joysticks[1].X == 1) {
         
         this.play("walk", true );
-        console.log("lopen")
         this.flipX = false;
       }
 
