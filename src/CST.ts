@@ -12,6 +12,7 @@ export const CST = {
     PLAY: "play_button2.png",
     TITLE: "background2.jpg"
   },
-  AUDIO: {},
+  AUDIO: {MENU: "menu.mp3"
+  },
   SPRITE: {}
 };
