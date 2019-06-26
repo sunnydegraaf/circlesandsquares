@@ -48,13 +48,19 @@ export class GameOverScene extends Phaser.Scene {
             })
         })
 
-        restartButton.on("pointerout", () => { 
+        restartButton.on("pointerout", () => {
             restartButton.setScale(1)
             this.tweens.remove(this.restartTween)
-          })
+        })
 
         restartButton.on("pointerup", () => {
-            this.scene.start(CST.SCENES.PLAY)
+            if (localStorage.getItem('prevScene') === 'opening') {
+                this.scene.start(CST.SCENES.OPENING)
+
+            } else {
+                this.scene.start(CST.SCENES.PLAY)
+
+            }
         })
 
         menuButton.setInteractive();
@@ -76,16 +82,16 @@ export class GameOverScene extends Phaser.Scene {
             })
         })
 
-        menuButton.on("pointerout", () => { 
+        menuButton.on("pointerout", () => {
             menuButton.setScale(1)
             this.tweens.remove(this.menuTween)
-          })
-        
+        })
+
 
         this.add
-        .image(0, 0, "background")
-        .setOrigin(0)
-        .setDepth(0);
+            .image(0, 0, "background")
+            .setOrigin(0)
+            .setDepth(0);
     }
 
     private nextGame() {

@@ -26,7 +26,8 @@ export class PlayScene extends Phaser.Scene {
     private mappy: Phaser.Tilemaps.Tilemap
     private timer: Timer;
     private timertext: Phaser.GameObjects.Text;
-
+    private vulnerable: boolean
+    canPush: boolean;
 
     constructor() {
         super({
@@ -40,11 +41,14 @@ export class PlayScene extends Phaser.Scene {
             this.pickupBaitJoy()
         })
 
+        this.vulnerable = false
+        localStorage.setItem('prevScene', 'opening')
+        this.canPush = true
     }
 
     create(): void {
 
-      
+
 
         //map
         this.mappy = this.add.tilemap("play1");
@@ -59,7 +63,7 @@ export class PlayScene extends Phaser.Scene {
         this.timer = new Timer()
         this.timer.time = 180
         this.timertext = this.add.text(15, 455, this.timer.time.toString()).setDepth(10);;
-        
+
 
         // pushable blocks
         let pushableBlocks = [];
@@ -141,8 +145,8 @@ export class PlayScene extends Phaser.Scene {
         }
     }
 
-    pickupBaitJoy(){
-        if(this.physics.collide(this.player, this.bait) && this.canpickup == true){
+    pickupBaitJoy() {
+        if (this.physics.collide(this.player, this.bait) && this.canpickup == true) {
             this.bait.destroy(true)
             this.baitCounter++
             this.canpickup = false
@@ -151,27 +155,32 @@ export class PlayScene extends Phaser.Scene {
     }
 
     eatBait(b: bait, e: enemy) {
+        this.vulnerable = true
         e.setVelocity(0)
         this.bait.destroy()
 
         setTimeout(() => {
-                e.collideWall()
+            this.vulnerable = false
+            e.collideWall()
             this.canpickup = false
             this.baitCounter++
         }, 3000);
     }
 
     bounceWall(p: characterPush | characterUlt, b: pushBlock): void {
-             //move block when pushed
-        if (b.body.touching.left && this.Keyboard.F.isDown) {
-            b.setVelocityX(175)
-        } else if (b.body.touching.right && this.Keyboard.F.isDown) {
-            b.setVelocityX(-175)
-        } else if (b.body.touching.up && this.Keyboard.F.isDown) {
-            b.setVelocityY(175)
-        } else if (b.body.touching.down && this.Keyboard.F.isDown) {
-            b.setVelocityY(-175)
-        }  
+        //move block when pushed
+        if (this.canPush = true) {
+            if (b.body.touching.left && this.Keyboard.F.isDown) {
+                b.setVelocityX(175)
+            } else if (b.body.touching.right && this.Keyboard.F.isDown) {
+                b.setVelocityX(-175)
+            } else if (b.body.touching.up && this.Keyboard.F.isDown) {
+                b.setVelocityY(175)
+            } else if (b.body.touching.down && this.Keyboard.F.isDown) {
+                b.setVelocityY(-175)
+            }
+        }
+
     }
 
     collidewall(e: enemy) {
@@ -181,8 +190,8 @@ export class PlayScene extends Phaser.Scene {
         }, 500);
     }
 
-    getSuffocated(p: characterUlt, b: pushBlock){
-        if(b.body.velocity.x !== 0 || b.body.velocity.y !== 0){
+    getSuffocated(p: characterUlt, b: pushBlock) {
+        if (b.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
             p.setVelocity(500)
             this.gameOver(p)
         }
@@ -191,48 +200,67 @@ export class PlayScene extends Phaser.Scene {
     gameOver(b: characterPush | characterUlt) {
         //play dead animation
         if (b instanceof characterPush) {
-          this.playerPush.die()
+            this.playerPush.die()
         }
         if (b instanceof characterUlt) {
-          this.player.die()
+            this.player.die()
         }
-    
-        setTimeout(() => {
-          this.scene.start("gameover");
-        }, 1250);
-      }
 
-      enemyDie(e: enemy, b: pushBlock) {
-        if(b.body.velocity.x !== 0 || b.body.velocity.y !== 0){
-          e.destroy();
-          console.log("enemygaatdood")    
-          var particles = this.add.particles("blood");
-    
-          this.emitter = particles.createEmitter({
-            lifespan: 300,
-            speed: 75,
-            scale: { start: 0.1, end: 0.05 },
-            x: e.x,
-            y: e.y + 20
-          });
-    
-          setTimeout(() => {
-            this.emitter.stop();
-          }, 300);
-    
-          // slow block down
-          setTimeout(() => {
-            b.setVelocity(0);
-          }, 150);
+        setTimeout(() => {
+            this.scene.start("gameover");
+        }, 1250);
+    }
+
+    enemyDie(e: enemy, b: pushBlock) {
+        if (this.vulnerable == true) {
+
+            if (b.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
+                e.destroy();
+                var particles = this.add.particles("blood");
+
+                this.emitter = particles.createEmitter({
+                    lifespan: 300,
+                    speed: 75,
+                    scale: { start: 0.1, end: 0.05 },
+                    x: e.x,
+                    y: e.y + 20
+                });
+
+                setTimeout(() => {
+                    this.emitter.stop();
+                }, 300);
+
+                // slow block down
+                setTimeout(() => {
+                    b.setVelocity(0);
+                }, 150);
+            }
+
         } else {
-          console.log("niet dood")
-          b.setVelocity(0)            
-          e.setVelocity(0)
-          setTimeout(() => {
-            this.collidewall(e)
-          }, 500);
-          }
-      }
+            if (b.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
+                if (b.body.touching.right) {
+                    b.setPosition(b.x - 1, b.y)
+                } else if (b.body.touching.left) {
+                    b.setPosition(b.x + 1, b.y)
+                } else if (b.body.touching.up) {
+                    b.setPosition(b.x, b.y + 1)
+                } else if (b.body.touching.down) {
+                    b.setPosition(b.x, b.y - 1)
+                }
+            }
+
+
+            b.setVelocity(0)
+            e.setVelocity(0)
+            setTimeout(() => {
+                this.collidewall(e)
+            }, 500);
+        }
+        this.canPush = false
+        setTimeout(() => {
+            this.canPush = true
+        }, 1000);
+    }
 
     blockDestroy(s: pushBlock, b: pushBlock) {
         if (s.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
@@ -262,17 +290,17 @@ export class PlayScene extends Phaser.Scene {
     update() {
         if (this.input.keyboard.checkDown(this.keyObj, 500)) {
             this.placeBait();
-          }
+        }
         this.player.update()
         this.playerPush.update()
         setInterval(() => {
-            
+
             this.timertext.setText(this.timer.time.toString())
         }, 1000);
 
         if (this.timer.time == 0) {
             this.gameOver(this.player)
-        } 
+        }
 
     }
 }
