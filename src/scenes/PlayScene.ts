@@ -28,7 +28,7 @@ export class PlayScene extends Phaser.Scene {
     private timer: Timer;
     private timertext: Phaser.GameObjects.Text;
     private vulnerable: boolean
-    canPush: boolean;
+    private canPush: boolean;
 
     constructor() {
         super({
@@ -184,7 +184,6 @@ export class PlayScene extends Phaser.Scene {
     }
 
     collidewall(e: enemy) {
-
         setTimeout(() => {
             e.collideWall()
         }, 500);
@@ -195,6 +194,12 @@ export class PlayScene extends Phaser.Scene {
             p.setVelocity(500)
             this.gameOver(p)
         }
+    }
+
+    completeLevel(){
+        if(this.enemyCounter === 0){
+            this.scene.start(CST.SCENES.MENU)
+        } 
     }
 
     gameOver(b: characterPush | characterUlt) {
@@ -215,6 +220,7 @@ export class PlayScene extends Phaser.Scene {
         if (this.vulnerable == true) {
 
             if (b.body.velocity.x !== 0 || b.body.velocity.y !== 0) {
+                this.enemyCounter = this.enemyCounter -1
                 e.destroy();
                 var particles = this.add.particles("blood");
 
@@ -302,7 +308,7 @@ export class PlayScene extends Phaser.Scene {
             this.gameOver(this.player)
         }
 
-
+        this.completeLevel()
 
     }
 }
