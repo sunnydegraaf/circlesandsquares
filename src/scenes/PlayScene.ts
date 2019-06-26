@@ -14,6 +14,7 @@ export class PlayScene extends Phaser.Scene {
     private blockGroup: Phaser.Physics.Arcade.Group
     private bait: bait
     private baitCounter: number
+    private enemyCounter: number
     private keyObj: Phaser.Input.Keyboard.Key
     private Keyboard: any
     private canpickup: boolean;
@@ -43,8 +44,6 @@ export class PlayScene extends Phaser.Scene {
     }
 
     create(): void {
-
-      
 
         //map
         this.mappy = this.add.tilemap("play1");
@@ -81,6 +80,9 @@ export class PlayScene extends Phaser.Scene {
             this.enemyGroup.add(new enemy(this, enemies[i].x, enemies[i].y))
         }
         this.enemyGroup.setVelocityX(100)
+
+        this.enemyCounter = enemies.length
+        console.log(this.enemyCounter)
 
         // players
         this.player = new characterUlt(this, 50, 75);
@@ -202,12 +204,20 @@ export class PlayScene extends Phaser.Scene {
         }, 1250);
       }
 
+    completeLevel() {
+        if (this.enemyCounter === 0) {
+            this.scene.start(CST.SCENES.MENU);
+        }
+    }
+
       enemyDie(e: enemy, b: pushBlock) {
         if(b.body.velocity.x !== 0 || b.body.velocity.y !== 0){
           e.destroy();
           console.log("enemygaatdood")    
           var particles = this.add.particles("blood");
-    
+
+          this.enemyCounter = this.enemyCounter - 1
+
           this.emitter = particles.createEmitter({
             lifespan: 300,
             speed: 75,
@@ -273,6 +283,8 @@ export class PlayScene extends Phaser.Scene {
         if (this.timer.time == 0) {
             this.gameOver(this.player)
         } 
+
+        this.completeLevel()
 
     }
 }
