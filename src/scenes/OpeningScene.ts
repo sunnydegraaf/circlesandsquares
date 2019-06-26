@@ -69,7 +69,7 @@ export class OpeningScene extends Phaser.Scene {
       .setDepth(5)
       .setOrigin(0.5);
     this.add
-      .text(320, 428, "Klik op F om een blok te verschuiven", {
+      .text(320, 428, "houdt F ingedrukt om een blok te verschuiven", {
         fontFamily: "Arial",
         fontSize: 12,
         color: "#000"
